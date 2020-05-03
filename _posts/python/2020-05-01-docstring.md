@@ -38,7 +38,6 @@ def set_profile(name=None, age=None):
 * arguments, return values, side effects, exceptions, restrictions 등을 작성한다.
 
 ## \_\_doc__ attribute
-![doc attribute](/assets/img/usr/doc_attribute.png)
-![doc attribute](/assets/img/usr/doc_attribute.png)
+![doc attribute](/assets/img/user/doc_attribute.png)
 
 > 참조 : [PEP-257](https://www.python.org/dev/peps/pep-0257/){:target="_blank"}
