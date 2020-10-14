@@ -53,7 +53,7 @@ class Solution:
                     right -= 1
             
         return triplets
-'''
+```
 
 # Link
 <https://leetcode.com/problems/3sum/>
