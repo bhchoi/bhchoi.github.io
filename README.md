@@ -1,2 +1,2 @@
 # bhchoi.github.io
-블로그 데모
+블로그
