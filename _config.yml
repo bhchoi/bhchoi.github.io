@@ -8,7 +8,7 @@
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 #--------------------------
 
-title:                           # the main title
+title: developer's blog                           # the main title
 
 tagline: hello   # it will display as the sub-title
 
