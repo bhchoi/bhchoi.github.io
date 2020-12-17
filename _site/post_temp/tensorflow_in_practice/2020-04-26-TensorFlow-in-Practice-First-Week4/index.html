@@ -1,0 +1,43 @@
+<blockquote>
+  <p>Coursera Tensorflow in Practice 강의 내용 정리 노트 입니다.</p>
+</blockquote>
+
+<p>Introduction to TensorFlow for Artificial Intelligence, Machine Learning, and Deep Learning 4주차 내용</p>
+
+<h2 id="imagedata-generator">Imagedata Generator</h2>
+<p>image data path를 지정하면 자동으로 rescale, size 등을 조정하여 load한다.<br />
+tutorial : <a href="https://www.tensorflow.org/tutorials/images/classification" target="_blank">https://www.tensorflow.org/tutorials/images/classification</a><br />
+api : <a href="https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator" target="_blank">https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator</a></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="n">train_datagen</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">(</span><span class="n">rescale</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">255</span><span class="p">)</span>
+
+<span class="n">train_generator</span> <span class="o">=</span> <span class="n">train_datagen</span><span class="p">.</span><span class="n">flow_from_directory</span><span class="p">(</span>
+    <span class="s">'/image_dir_path/'</span><span class="p">,</span>
+    <span class="n">target_size</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">class_mode</span><span class="o">=</span><span class="s">'binary'</span>
+<span class="p">)</span>
+
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">fit_generator</span><span class="p">(</span>
+    <span class="n">train_generator</span><span class="p">,</span>
+    <span class="n">steps_per_epoch</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">callbacks</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
