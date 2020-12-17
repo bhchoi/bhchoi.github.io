@@ -9,7 +9,7 @@
 # --------------------------
 title: 개발자                          # the main title
 
-tagline: A text-focused Jekyll theme.  # it will display as the sub-title
+tagline: 기록 안하면 까먹는다.  # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   A minimal, portfolio, sidebar,
