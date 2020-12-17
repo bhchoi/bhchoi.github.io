@@ -1,0 +1,7 @@
+I"S<h1 id="annotation이란">Annotation이란?</h1>
+<ul>
+  <li>annotation은 function의 parameter와 return value에 대한 hint를 주는 것이다.</li>
+  <li>강제하는 것이 아니라 단지 알려주는 것이다.</li>
+  <li>파이썬은 동적으로 type을 결정하기 때문에 잘못된 type을 사용할 수 있다.</li>
+</ul>
+:ET

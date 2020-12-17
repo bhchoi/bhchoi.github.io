@@ -1,0 +1,87 @@
+I"�<h1 id="decorator란">Decorator란?</h1>
+<p>디자인 패턴 중 하나인 decorator pattern과 비슷한 개념으로, 반복적인 것을 공통화하고, 메소드나 클래스의 기능을 확장할 수 있는 방법이다.<br />
+자세한 내용은 예제를 통해 알아보자.</p>
+
+<h1 id="decorator-예제">Decorator 예제</h1>
+<ul>
+  <li>먼저 decorator로 사용할 function을 정의한다.</li>
+  <li>function 상단에 @ 심볼과 decorator function명을 입력한다.<br />
+```python
+def decorator_func(original_function):
+  def wrapper():
+      print(“decorator 호출”)
+      return original_function()
+  return wrapper</li>
+</ul>
+
+<p>@decorator_func
+def func():
+    print(‘func 호출’)</p>
+
+<p>func()</p>
+
+<h1 id="decorator-호출">decorator 호출</h1>
+<h1 id="func-호출">func 호출</h1>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="rouge-code"><pre>
+* function arguments도 추가할 수 있다.
+```python
+def decorator_func(original_function):
+    def wrapper(*args, **kwargs):
+        print("decorator 호출")
+        return original_function()
+    return wrapper
+
+@decorator_func
+def func(name):
+    print('func({}) 호출'.format(name))
+
+func("func")
+
+# decorator 호출
+# func(alex) 호출
+</pre></td></tr></tbody></table></code></pre></div></div>
+<ul>
+  <li>여러개의 decorator를 붙일 수 있다.
+```python
+def time_logging_func(func):
+  def wrapper(<em>args, **kwargs):
+      print(datetime.datetime.now())
+      return func(</em>args, **kwargs)
+  return wrapper</li>
+</ul>
+
+<p>def decorator_func(func):
+    def wrapper(<em>args, **kwargs):
+        print(“decorator 호출”)
+        return func(</em>args, **kwargs)
+    return wrapper</p>
+
+<p>@time_logging_func
+@decorator_func
+def func(name):
+    print(‘func({}) 호출’.format(name))</p>
+
+<p>func(“alex”)</p>
+
+<h1 id="2020-06-06-234927586175">2020-06-06 23:49:27.586175</h1>
+<h1 id="decorator-호출-1">decorator 호출</h1>
+<h1 id="funcalex-호출">func(alex) 호출</h1>
+<p>```</p>
+:ET

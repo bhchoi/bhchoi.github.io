@@ -1,0 +1,53 @@
+I"K	<h1 id="docstring이란">Docstring이란?</h1>
+<ul>
+  <li>docstring은 module, function, class, method에 대한 문서화 작업을 말한다.</li>
+  <li>docstring은 __doc__ special attribute에 저장된다.</li>
+</ul>
+
+<h1 id="docstring-작성-방법">Docstring 작성 방법</h1>
+<h2 id="one-line-docstrings">One-line Docstrings</h2>
+<p>docstring을 한 줄에 작성하는 방법이다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">get_name</span><span class="p">():</span>
+    <span class="s">"""name을 리턴한다."""</span>
+    <span class="p">...</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<ul>
+  <li>메소드의 summary를 작성한다.</li>
+  <li>쌍따옴표 3개를 사용하여 시작하고 종료한다.</li>
+  <li>docstring 앞 뒤로 blank line이 없다.</li>
+</ul>
+
+<h2 id="multi-line-docstrings">Multi-line Docstrings</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">set_profile</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="s">"""프로필(name, age)를 업데이트한다.
+
+    Keyword arguments:
+    name -- 이름 (default None)
+    age  -- 나이 (default None)
+    """</span>
+    <span class="p">...</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<ul>
+  <li>첫번째 줄은 summary를 작성한다.</li>
+  <li>blank line을 추가한 후 나머지를 작성한다.</li>
+  <li>arguments, return values, side effects, exceptions, restrictions 등을 작성한다.</li>
+</ul>
+
+<h2 id="__doc__-attribute">__doc__ attribute</h2>
+<p><img src="/assets/img/user/doc_attribute.png" alt="doc attribute" /></p>
+
+<blockquote>
+  <p>참조 : <a href="https://www.python.org/dev/peps/pep-0257/" target="_blank">PEP-257</a></p>
+</blockquote>
+:ET

@@ -1,4 +1,4 @@
-I"z%<blockquote>
+I"b%<blockquote>
   <p>Coursera Tensorflow in Practice 강의 내용 정리 노트 입니다.</p>
 </blockquote>
 
@@ -70,7 +70,7 @@ myCallback을 생성하여 model.fit()의 callbacks에 넣어준다.</p>
 </pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">myCallback</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">keras</span><span class="p">.</span><span class="n">callbacks</span><span class="p">.</span><span class="n">Callback</span><span class="p">):</span>
   <span class="k">def</span> <span class="nf">on_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">logs</span><span class="o">=</span><span class="p">{}):</span>
     <span class="k">if</span><span class="p">(</span><span class="n">logs</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'accuracy'</span><span class="p">)</span><span class="o">&gt;</span><span class="mf">0.6</span><span class="p">):</span>
-      <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="si">\</span><span class="se">n</span><span class="s">Reached 60% accuracy so cancelling training!"</span><span class="p">)</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Reached 60% accuracy so cancelling training!"</span><span class="p">)</span>
       <span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">stop_training</span> <span class="o">=</span> <span class="bp">True</span>
 
 <span class="n">callbacks</span> <span class="o">=</span> <span class="n">myCallback</span><span class="p">()</span>

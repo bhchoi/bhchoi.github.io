@@ -1,0 +1,121 @@
+I"�"<h1 id="24-underscores-dunders-and-more">2.4 Underscores, Dunders, and More</h1>
+<p>파이썬 variable과 method에 사용하는 underscore에 대한 의미를 알아보자.</p>
+
+<h2 id="single-leading-underscore-_var">Single Leading Underscore: “_var”</h2>
+<p>prefix로 underscore를 붙이는 것은 내부적으로만 사용한다는 hint다. 
+java처럼 private/public 구분이 없기 때문에, underscore를 prefix로 붙여서 사용한다.
+그래서 실제로 underscore가 prefix로 붙은 것은 접근이 가능하다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Test</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">foo</span> <span class="o">=</span> <span class="mi">11</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_bar</span> <span class="o">=</span> <span class="mi">23</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>&gt;&gt;&gt; t = Test()
+&gt;&gt;&gt; t.foo
+11
+&gt;&gt;&gt; t._bar
+23
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>한가지, import하여 사용할때 특이사항이 있다. 아래 처럼 methond가 있다고 가정하자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c1"># my_module.py
+</span>
+<span class="k">def</span> <span class="nf">external_func</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">23</span>
+
+<span class="k">def</span> <span class="nf">_internal_func</span><span class="p">():</span>
+  <span class="k">return</span> <span class="mi">42</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>my_module을 전체 import하면 underscore가 prefix로 붙은 method는 import 되지 않는다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>&gt;&gt;&gt; from my_module import *
+&gt;&gt;&gt; external_func()
+23
+&gt;&gt;&gt; _internal_func()
+NameError: "name '_internal_func' is not defined"
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>하지만, 직접 접근은 가능하다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>&gt;&gt;&gt; import my_module
+&gt;&gt;&gt; my_module.external_func()
+23
+&gt;&gt;&gt; my_module._internal_func()
+42
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="25-a-shocking-truth-about-string-formatting포맷팅">2.5 A Shocking Truth About String Formatting(포맷팅)</h1>
+<p>아래 변수들을 이용하여 다음과 같이 출력하려면 어떻게 해야 될까?</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">errno</span> <span class="o">=</span> <span class="mi">50159747054</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s">'Bob'</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>'Hey Bob, there is a 0xbadc0ffee error!'
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="old-style-string-formatting">Old Style String Formatting</h2>
+<p>% Operation을 이용하여 하는 방법</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="s">'Hey %s, there is a 0x%x error!'</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">errno</span><span class="p">)</span>
+<span class="s">'Hey %(name)s, there is a 0x%(errno)x error!'</span> <span class="o">%</span> <span class="p">{</span><span class="s">"name"</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s">"errno"</span><span class="p">:</span> <span class="n">errno</span> <span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="new-style-string-formatting">New Style String Formatting</h2>
+<p>python3에서 사용가능한 format()을 이용하는 방법</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="s">'Hello, {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="s">'Hey {name}, there is a 0x{errno:x} error!'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">errno</span><span class="o">=</span><span class="n">errno</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="literal-string-interpolation">Literal String Interpolation</h2>
+<p>python3.6에 추가된 Formatted String Literals 방법</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="s">f'Hello, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s">!'</span>
+<span class="s">f"Hey </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s">, there's a </span><span class="si">{</span><span class="n">errno</span><span class="p">:</span><span class="c1">#x</span><span class="si">}</span><span class="s"> error!"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="template-strings">Template Strings</h2>
+<p>Template를 이용하는 방법</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">string</span> <span class="kn">import</span> <span class="n">Template</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="s">'Hey, $name!'</span><span class="p">)</span>
+<span class="n">t</span><span class="p">.</span><span class="n">substitute</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">templ_string</span> <span class="o">=</span> <span class="s">'Hey $name, there is a $error error!'</span>
+<span class="n">Template</span><span class="p">(</span><span class="n">templ_string</span><span class="p">).</span><span class="n">substitute</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="nb">hex</span><span class="p">(</span><span class="n">errno</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+:ET

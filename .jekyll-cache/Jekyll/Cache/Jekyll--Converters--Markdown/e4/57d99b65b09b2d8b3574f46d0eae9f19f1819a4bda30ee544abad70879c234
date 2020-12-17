@@ -1,0 +1,85 @@
+I"�<h1 id="description">Description</h1>
+<blockquote>
+  <p>You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.</p>
+
+  <p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
+</blockquote>
+
+<ul>
+  <li>linked list로 표현된 2개의 숫자를 더하는 문제</li>
+  <li>linked list는 역순으로 입력되어 있다.</li>
+  <li>더한 결과도 숫자 하나씩 역순의 linked list로 만들어 리턴</li>
+</ul>
+
+<h1 id="example">Example</h1>
+<blockquote>
+  <p>Input: l1 = [2,4,3], l2 = [5,6,4]<br />
+Output: [7,0,8]<br />
+Explanation: 342 + 465 = 807.</p>
+</blockquote>
+
+<blockquote>
+  <p>Input: l1 = [0], l2 = [0]<br />
+Output: [0]</p>
+</blockquote>
+
+<blockquote>
+  <p>Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]<br />
+Output: [8,9,9,9,0,0,0,1]</p>
+</blockquote>
+
+<h1 id="solution">Solution</h1>
+<p>linked list를 순회하며 두 개의 숫자를 더한다.<br />
+두 수의 합이 10을 넘는 경우 올림을 해야하기 때문에, divmod()를 이용해 10으로 나눈 몫을 다음 loop로 넘겨준다.<br />
+더한 결과는 ListNode를 생성하여 연결해준다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">isPalindrome</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        
+        <span class="n">quotient</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">head</span> <span class="o">=</span> <span class="n">node</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        
+        <span class="k">while</span> <span class="n">l1</span> <span class="ow">or</span> <span class="n">l2</span> <span class="ow">or</span> <span class="n">quotient</span><span class="p">:</span>
+            
+            <span class="n">sum_val</span> <span class="o">=</span> <span class="mi">0</span>
+            
+            <span class="k">if</span> <span class="n">l1</span><span class="p">:</span>
+                <span class="n">sum_val</span> <span class="o">+=</span> <span class="n">l1</span><span class="p">.</span><span class="n">val</span>
+                <span class="n">l1</span> <span class="o">=</span> <span class="n">l1</span><span class="p">.</span><span class="nb">next</span>
+            <span class="k">if</span> <span class="n">l2</span><span class="p">:</span>
+                <span class="n">sum_val</span> <span class="o">+=</span> <span class="n">l2</span><span class="p">.</span><span class="n">val</span>
+                <span class="n">l2</span> <span class="o">=</span> <span class="n">l2</span><span class="p">.</span><span class="nb">next</span>
+            
+              
+            <span class="n">quotient</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">sum_val</span> <span class="o">+</span> <span class="n">quotient</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="n">node</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="n">remainder</span><span class="p">)</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="nb">next</span>
+        
+        <span class="k">return</span> <span class="n">head</span><span class="p">.</span><span class="nb">next</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<h1 id="link">Link</h1>
+<p><a href="https://leetcode.com/problems/add-two-numbers//">https://leetcode.com/problems/add-two-numbers//</a></p>
+:ET

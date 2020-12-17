@@ -1,0 +1,70 @@
+I"(<h1 id="annotation이란">Annotation이란?</h1>
+<ul>
+  <li>annotation은 function의 parameter와 return value에 대한 hint를 주는 것이다.</li>
+  <li>강제하는 것이 아니라 단지 알려주는 것이다.</li>
+  <li>파이썬은 동적으로 type을 결정하기 때문에 잘못된 type을 사용할 수 있다.</li>
+</ul>
+
+<h1 id="문법">문법</h1>
+<h2 id="parameters">Parameters</h2>
+<ul>
+  <li>parameter 뒤에 annotation을 작성한다.</li>
+  <li>type을 지정할 수도 있고, defaule value를 지정할 수도 있다.
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td> --><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">expression</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">expression</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+  <span class="p">...</span>
+<span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">1.5</span><span class="p">):</span>
+  <span class="p">...</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>*args와 **kwargs에도 적용된다.
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td> --><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">expression</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">expression</span><span class="p">):</span>
+  <span class="p">...</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>중첩해서 사용할 수도 있다.
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td> --><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">foo</span><span class="p">((</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">:</span> <span class="n">expression</span><span class="p">),</span>
+      <span class="p">(</span><span class="n">x2</span><span class="p">:</span> <span class="n">expression</span><span class="p">,</span> <span class="n">y2</span><span class="p">:</span> <span class="n">expression</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">)):</span>
+  <span class="p">...</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="return-values">Return Values</h2>
+<ul>
+  <li>”-&gt;” 뒤에 expression을 작성한다.
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td> --><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">sum</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">expression</span><span class="p">:</span>
+  <span class="p">...</span>
+<span class="k">def</span> <span class="nf">sum</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+  <span class="p">...</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="lambda">Lambda</h2>
+<ul>
+  <li>lambda 문법에는 annotation이 적용되지 않는다.</li>
+</ul>
+
+<h1 id="annotation-attribute">Annotation attribute</h1>
+<ul>
+  <li>annotation은 __annotations__ attribute로 접근이 가능하다.<br />
+<img src="/assets/img/user/annotation_attribute.png" alt="annotation_attribute" /></li>
+</ul>
+
+<blockquote>
+  <p>참조 : <a href="https://www.python.org/dev/peps/pep-3107/#grammar/" target="_blank">PEP-3107</a></p>
+</blockquote>
+:ET

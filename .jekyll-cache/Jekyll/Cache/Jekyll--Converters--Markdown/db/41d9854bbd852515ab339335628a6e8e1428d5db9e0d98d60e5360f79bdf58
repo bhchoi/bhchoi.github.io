@@ -1,0 +1,54 @@
+I"[<h1 id="description">Description</h1>
+<blockquote>
+  <p>Given a list of daily temperatures T, return a list such that, for each day in the input, tells you how many days you would have to wait until a warmer temperature. If there is no future day for which this is possible, put 0 instead.</p>
+
+  <p>For example, given the list of temperatures T = [73, 74, 75, 71, 69, 72, 76, 73], your output should be [1, 1, 4, 2, 1, 1, 0, 0].</p>
+</blockquote>
+
+<ul>
+  <li>일일 온도 정보가 list로 입력됨</li>
+  <li>각 온도보다 더 따뜻하지는 날이 되려면 얼마나 지나야 되는지 구하는 문제</li>
+</ul>
+
+<h1 id="example">Example</h1>
+<blockquote>
+  <p>Input: [73, 74, 75, 71, 69, 72, 76, 73] 
+Output: [1, 1, 4, 2, 1, 1, 0, 0]</p>
+</blockquote>
+
+<h1 id="solution">Solution</h1>
+<p>brute force 방법으로, 2중 loop으로 list 전체를 순회하면 해결되지만 time limit에 걸림.<br />
+각 인덱스는 stack에 넣고, 온도를 비교하면서, 더 따뜻해지는 날이 나오면 현재의 인덱스와 stack의 인덱스를 비교하여 차이를 구한다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td> --><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">dailyTemperatures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">T</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+
+        <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> 
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">cur</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+            
+            <span class="k">while</span> <span class="n">stack</span> <span class="ow">and</span> <span class="n">cur</span> <span class="o">&gt;</span> <span class="n">T</span><span class="p">[</span><span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]:</span>
+                <span class="n">last</span> <span class="o">=</span> <span class="n">stack</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+                <span class="n">res</span><span class="p">[</span><span class="n">last</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">last</span>
+            
+            <span class="n">stack</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            
+        <span class="k">return</span> <span class="n">res</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<h1 id="link">Link</h1>
+<p><a href="https://leetcode.com/problems/daily-temperatures/">https://leetcode.com/problems/daily-temperatures/</a></p>
+:ET

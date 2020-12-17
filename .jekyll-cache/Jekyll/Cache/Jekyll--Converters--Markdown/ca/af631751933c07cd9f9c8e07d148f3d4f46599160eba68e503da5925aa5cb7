@@ -1,0 +1,166 @@
+I")<blockquote>
+  <p>Python Tricks 책의 7.1 Dictionary Default Values 정리 내용입니다.</p>
+</blockquote>
+
+<p>아래와 같은 dictionary가 있을때</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="n">arsenal_player_number</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">14</span><span class="p">:</span> <span class="s">"auba"</span><span class="p">,</span>
+    <span class="mi">10</span><span class="p">:</span> <span class="s">"ozil"</span><span class="p">,</span>
+    <span class="mi">35</span><span class="p">:</span> <span class="s">"gabi"</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>각 선수이름에 해당하는 등번호를 출력하고 싶다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">print_number</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">f"안녕 </span><span class="si">{</span><span class="n">arsenal_player_number</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="si">}</span><span class="s">"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>만약 선수이름이 dictionary에 존재하지 않을 경우 exception이 발생한다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>&gt;&gt;&gt; print_number(14)
+'안녕 auba'
+
+&gt;&gt;&gt; print_number(9)
+KeyError: 9
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>key가 없을 경우 어떻게 처리를 할까?
+먼저 dictionary에 key가 존재하는지 확인하는 방법이 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">print_number</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">arsenal_player_number</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">f"안녕 </span><span class="si">{</span><span class="n">arsenal_player_number</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="si">}</span><span class="s">"</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">"안녕 친구"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>&gt;&gt;&gt; print_number(14)
+'안녕 auba'
+
+&gt;&gt;&gt; print_number(9)
+'안녕 친구'
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>하지만 이 방식에는 개선할 부분이 있다.</p>
+<ul>
+  <li>dictionary에 2번 접근</li>
+  <li>이 예시의 경우, string이 반복적으로 사용된다.</li>
+  <li>pythonic하지 않다. 공식적으로 python은 EAFP 스타일을 추천한다.
+    <ul>
+      <li>EAFP : easier to ask for forgiveness than permission</li>
+      <li>python은 dictionary에 key가 유효하다는 가정하에 사용하고, key가 없으면 exception 처리를 한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>EAFP를 적용하여, KeyError를 예외처리해보자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">print_number</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">f"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">arsenal_player_number</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="si">}</span><span class="s">"</span>
+    <span class="k">except</span> <span class="nb">KeyError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">"안녕 친구"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>dictionary에 2번 접근하는 것은 해결했다.
+좀 더 깔끔한 방법으로 해보자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">print_number</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">f"안녕 </span><span class="si">{</span><span class="n">arsenal_player_number</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="s">'친구'</span><span class="p">)</span><span class="si">}</span><span class="s">"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>get()에 key값과 key가 없을 경우 사용할 default 값을 함께 넘긴다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>&gt;&gt;&gt; print_number(10)
+'안녕 ozil'
+
+&gt;&gt;&gt; print_number(9)
+'안녕 친구'
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>아예 처음부터 default 값을 가지고 있는 defaultdict를 활용할 수도 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">collections</span>
+<span class="n">arsenal_player_number</span> <span class="o">=</span> <span class="n">collections</span><span class="p">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="s">"친구"</span><span class="p">)</span>
+<span class="n">arsenal_player_number</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span> <span class="o">=</span> <span class="s">"auba"</span>
+<span class="n">arsenal_player_number</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="s">"ozil"</span>
+<span class="n">arsenal_player_number</span><span class="p">[</span><span class="mi">35</span><span class="p">]</span> <span class="o">=</span> <span class="s">"gabi"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">print_number</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">f"안녕 </span><span class="si">{</span><span class="n">arsenal_player_number</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="si">}</span><span class="s">"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>&gt;&gt;&gt; print_number(10)
+'안녕 ozil'
+
+&gt;&gt;&gt; print_number(9)
+'안녕 친구'
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>아래 처럼 default 값을 가지도록 만들어서, null check를 하지 않고 사용할 수 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">collections</span>
+<span class="n">default_list_dict</span> <span class="o">=</span> <span class="n">collections</span><span class="p">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="n">default_str_dict</span> <span class="o">=</span> <span class="n">collections</span><span class="p">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">default_int_dict</span> <span class="o">=</span> <span class="n">collections</span><span class="p">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>&gt;&gt;&gt; default_list_dict[0]
+[]
+
+&gt;&gt;&gt; default_str_dict[0]
+''
+
+&gt;&gt;&gt; default_int_dict[0]
+0
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET
