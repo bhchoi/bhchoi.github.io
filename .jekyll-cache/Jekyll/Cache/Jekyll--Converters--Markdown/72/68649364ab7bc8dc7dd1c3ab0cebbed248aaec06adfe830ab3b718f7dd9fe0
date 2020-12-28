@@ -1,4 +1,4 @@
-I"è
+I"&
 <div id="tags" class="d-flex flex-wrap ml-xl-2 mr-xl-2">
 
 
@@ -12,6 +12,10 @@
 
   <div>
     <a class="tag" href="/tags/algorithm/">algorithm<span class="text-muted">5</span></a>
+  </div>
+
+  <div>
+    <a class="tag" href="/tags/bert/">bert<span class="text-muted">1</span></a>
   </div>
 
   <div>
@@ -35,6 +39,10 @@
   </div>
 
   <div>
+    <a class="tag" href="/tags/ner/">ner<span class="text-muted">1</span></a>
+  </div>
+
+  <div>
     <a class="tag" href="/tags/pep-318/">pep-318<span class="text-muted">1</span></a>
   </div>
 
@@ -44,6 +52,10 @@
 
   <div>
     <a class="tag" href="/tags/python-tricks/">Python Tricks<span class="text-muted">2</span></a>
+  </div>
+
+  <div>
+    <a class="tag" href="/tags/pytorch-lightning/">pytorch-lightning<span class="text-muted">1</span></a>
   </div>
 
   <div>
