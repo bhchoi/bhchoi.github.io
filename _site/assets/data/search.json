@@ -1,15 +1,6 @@
 [
   
   {
-    "title": "pytorch lightning을 이용한 BERT NER 구현 하기",
-    "url": "/posts/bert_ner_pytorch_lightning/",
-    "categories": "nlp",
-    "tags": "pytorch-lightning, bert, ner",
-    "date": "2020-12-18 00:11:00 +0900",
-    "snippet": ""
-  },
-  
-  {
     "title": "[python] dictionary에 default value 사용하기",
     "url": "/posts/dictionary_default_values/",
     "categories": "Python",
