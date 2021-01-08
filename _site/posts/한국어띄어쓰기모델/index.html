@@ -34,12 +34,12 @@ ModuNewsLight<span class="o">(</span><span class="nv">document_id</span><span cl
 <span class="n">corpus</span> <span class="o">=</span> <span class="n">modu_news</span><span class="p">.</span><span class="n">get_all_texts</span><span class="p">()</span>
 
 <span class="k">for</span> <span class="n">sentences</span> <span class="ow">in</span> <span class="n">corpus</span><span class="p">:</span>
-		<span class="n">sentences</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"'"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
-		<span class="n">sentences</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"</span><span class="se">\"</span><span class="s">"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
-		<span class="n">sentences</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+    <span class="n">sentences</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"'"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
+    <span class="n">sentences</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"</span><span class="se">\"</span><span class="s">"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
+    <span class="n">sentences</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
 
-		<span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
-				<span class="n">splited_sentences</span><span class="p">.</span><span class="n">extend</span><span class="p">(</span><span class="n">kss</span><span class="p">.</span><span class="n">split_sentences</span><span class="p">(</span><span class="n">sentence</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+        <span class="n">splited_sentences</span><span class="p">.</span><span class="n">extend</span><span class="p">(</span><span class="n">kss</span><span class="p">.</span><span class="n">split_sentences</span><span class="p">(</span><span class="n">sentence</span><span class="p">))</span>
 </pre></table></code></div></div><div class="language-shell highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 </pre><td class="rouge-code"><pre><span class="o">&gt;&gt;</span> splited_sentences
@@ -88,14 +88,14 @@ ModuNewsLight<span class="o">(</span><span class="nv">document_id</span><span cl
 <span class="k">def</span> <span class="nf">split_sentences</span><span class="p">(</span><span class="n">corpus</span><span class="p">):</span>
     <span class="n">splited_sentences</span> <span class="o">=</span> <span class="p">[]</span>
 
-		<span class="k">for</span> <span class="n">sentences</span> <span class="ow">in</span> <span class="n">corpus</span><span class="p">:</span>
-				<span class="n">sentences</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"'"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
-				<span class="n">sentences</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"</span><span class="se">\"</span><span class="s">"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
-				<span class="n">sentences</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
-		
-				<span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
-						<span class="n">splited_sentences</span><span class="p">.</span><span class="n">extend</span><span class="p">(</span><span class="n">kss</span><span class="p">.</span><span class="n">split_sentences</span><span class="p">(</span><span class="n">sentence</span><span class="p">))</span>
-		<span class="k">return</span> <span class="n">splited_sentences</span>
+    <span class="k">for</span> <span class="n">sentences</span> <span class="ow">in</span> <span class="n">corpus</span><span class="p">:</span>
+        <span class="n">sentences</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"'"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
+        <span class="n">sentences</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"</span><span class="se">\"</span><span class="s">"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
+        <span class="n">sentences</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+            <span class="n">splited_sentences</span><span class="p">.</span><span class="n">extend</span><span class="p">(</span><span class="n">kss</span><span class="p">.</span><span class="n">split_sentences</span><span class="p">(</span><span class="n">sentence</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">splited_sentences</span>
 
 <span class="k">def</span> <span class="nf">chunker_list</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">seq</span><span class="p">[</span><span class="n">i</span><span class="p">::</span><span class="n">size</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
