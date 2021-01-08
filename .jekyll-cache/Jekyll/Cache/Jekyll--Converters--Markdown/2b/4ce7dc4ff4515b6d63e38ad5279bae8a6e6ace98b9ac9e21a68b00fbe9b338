@@ -1,4 +1,4 @@
-I"�
+I"<
 <div id="tags" class="d-flex flex-wrap ml-xl-2 mr-xl-2">
 
 
@@ -12,6 +12,10 @@
 
   <div>
     <a class="tag" href="/tags/algorithm/">algorithm<span class="text-muted">5</span></a>
+  </div>
+
+  <div>
+    <a class="tag" href="/tags/bert/">bert<span class="text-muted">1</span></a>
   </div>
 
   <div>
@@ -47,7 +51,15 @@
   </div>
 
   <div>
+    <a class="tag" href="/tags/spacing/">spacing<span class="text-muted">1</span></a>
+  </div>
+
+  <div>
     <a class="tag" href="/tags/style-checker/">style checker<span class="text-muted">1</span></a>
+  </div>
+
+  <div>
+    <a class="tag" href="/tags/%EB%9D%84%EC%96%B4%EC%93%B0%EA%B8%B0/">띄어쓰기<span class="text-muted">1</span></a>
   </div>
 
 
