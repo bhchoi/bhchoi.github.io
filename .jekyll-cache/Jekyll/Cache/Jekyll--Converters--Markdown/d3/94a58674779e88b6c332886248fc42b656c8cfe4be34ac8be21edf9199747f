@@ -1,0 +1,714 @@
+I"��<h2 id="config-설정">Config 설정</h2>
+
+<p>학습에 필요한 각종 값과 하이퍼파라미터입니다.<br />
+argparse를 이용해 인자로 받을 수도 있으나, yaml로 정의하여 불러오도록 하겠습니다.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td> --><td class="rouge-code"><pre><span class="na">task</span><span class="pi">:</span> <span class="s">korean_spacing_20210101</span>
+<span class="na">log_path</span><span class="pi">:</span> <span class="s">logs</span>
+<span class="na">bert_model</span><span class="pi">:</span> <span class="s">monologg/kobert</span>
+<span class="na">train_data_path</span><span class="pi">:</span> <span class="s">data/nikl_newspaper/train.txt</span>
+<span class="na">val_data_path</span><span class="pi">:</span> <span class="s">data/nikl_newspaper/val.txt</span>
+<span class="na">test_data_path</span><span class="pi">:</span> <span class="s">data/nikl_newspaper/test.txt</span>
+<span class="na">max_len</span><span class="pi">:</span> <span class="m">128</span>
+<span class="na">train_batch_size</span><span class="pi">:</span> <span class="m">128</span>
+<span class="na">eval_batch_size</span><span class="pi">:</span> <span class="m">128</span>
+<span class="na">dropout_rate</span><span class="pi">:</span> <span class="m">0.1</span>
+<span class="na">gpus</span><span class="pi">:</span> <span class="m">8</span>
+<span class="na">distributed_backend</span><span class="pi">:</span> <span class="s">ddp</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p> </p>
+
+<h2 id="모델-생성">모델 생성</h2>
+
+<p>PyTorch Lightning을 이용해 모델을 생성해보겠습니다.<br />
+PyTorch Lightning은 tensorflow의 keras처럼, 좀 더 쉽게 pytorch를 사용할 수 있는 라이브러리입니다.<br />
+<a href="https://github.com/PyTorchLightning/pytorch-lightning">PyTorchLightning/pytorch-lightning</a></p>
+
+<p>먼저, pytorch_lightning을 상속받아 클래스를 정의하고, 필요한 function들을 작성해줍니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td> --><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">pytorch_lightning</span> <span class="k">as</span> <span class="n">pl</span>
+
+<span class="k">class</span> <span class="nc">SpacingBertModel</span><span class="p">(</span><span class="n">pl</span><span class="p">.</span><span class="n">LightningModule</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p> </p>
+
+<p>dataset과 학습에 필요한 config를 넘겨받습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td> --><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">SpacingBertModel</span><span class="p">(</span><span class="n">pl</span><span class="p">.</span><span class="n">LightningModule</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">,</span>
+        <span class="n">dataset</span><span class="p">:</span> <span class="n">CorpusDataset</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p> </p>
+
+<p>dataloader를 생성합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td> --><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">train_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s">"train"</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">train_batch_size</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">val_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s">"val"</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">eval_batch_size</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s">"test"</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">eval_batch_size</span><span class="p">)</span><span class="o">**</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p> </p>
+
+<p>모델을 정의하고 forward를 구현합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+</pre></td> --><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">SpacingBertModel</span><span class="p">(</span><span class="n">pl</span><span class="p">.</span><span class="n">LightningModule</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">,</span>
+        <span class="n">dataset</span><span class="p">:</span> <span class="n">CorpusDataset</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">slot_labels_type</span> <span class="o">=</span> <span class="p">[</span><span class="s">"UNK"</span><span class="p">,</span> <span class="s">"PAD"</span><span class="p">,</span> <span class="s">"B"</span><span class="p">,</span> <span class="s">"I"</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">pad_token_id</span> <span class="o">=</span> <span class="mi">0</span><span class="o">**</span>
+				<span class="o">**</span><span class="bp">self</span><span class="p">.</span><span class="n">bert_config</span> <span class="o">=</span> <span class="n">BertConfig</span><span class="p">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">bert_model</span><span class="p">,</span> <span class="n">num_labels</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">slot_labels_type</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">BertModel</span><span class="p">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">bert_model</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">bert_config</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Dropout</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">dropout_rate</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">linear</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">bert_config</span><span class="p">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">slot_labels_type</span><span class="p">)</span>
+        <span class="p">)</span><span class="o">**</span>
+		
+		<span class="o">**</span><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_ids</span><span class="p">,</span> <span class="n">attention_mask</span><span class="p">,</span> <span class="n">token_type_ids</span><span class="p">):</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">(</span>
+            <span class="n">input_ids</span><span class="o">=</span><span class="n">input_ids</span><span class="p">,</span>
+            <span class="n">attention_mask</span><span class="o">=</span><span class="n">attention_mask</span><span class="p">,</span>
+            <span class="n">token_type_ids</span><span class="o">=</span><span class="n">token_type_ids</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">linear</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">x</span>
+
+		<span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">AdamW</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">2e-5</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">)</span><span class="o">**</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p> </p>
+
+<p>training을 수행한 결과를 처리하는 부분을 작성합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre></td> --><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_nb</span><span class="p">):</span>
+
+		<span class="n">input_ids</span><span class="p">,</span> <span class="n">attention_mask</span><span class="p">,</span> <span class="n">token_type_ids</span><span class="p">,</span> <span class="n">slot_labels</span> <span class="o">=</span> <span class="n">batch</span>
+		
+		<span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span>
+		    <span class="n">input_ids</span><span class="o">=</span><span class="n">input_ids</span><span class="p">,</span>
+		    <span class="n">attention_mask</span><span class="o">=</span><span class="n">attention_mask</span><span class="p">,</span>
+		    <span class="n">token_type_ids</span><span class="o">=</span><span class="n">token_type_ids</span><span class="p">,</span>
+		<span class="p">)</span>
+		
+		<span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_calculate_loss</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">slot_labels</span><span class="p">)</span>
+		<span class="n">tensorboard_logs</span> <span class="o">=</span> <span class="p">{</span><span class="s">"train_loss"</span><span class="p">:</span> <span class="n">loss</span><span class="p">}</span>
+		
+		<span class="k">return</span> <span class="p">{</span><span class="s">"loss"</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span> <span class="s">"log"</span><span class="p">:</span> <span class="n">tensorboard_logs</span><span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">_calculate_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+    <span class="n">active_logits</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">slot_labels_type</span><span class="p">))</span>
+    <span class="n">active_labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">cross_entropy</span><span class="p">(</span><span class="n">active_logits</span><span class="p">,</span> <span class="n">active_labels</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">loss</span>
+
+<span class="k">def</span> <span class="nf">_f1_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gt_slot_labels</span><span class="p">,</span> <span class="n">pred_slot_labels</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="p">.</span><span class="n">tensor</span><span class="p">(</span>
+        <span class="n">f1_score</span><span class="p">(</span><span class="n">gt_slot_labels</span><span class="p">,</span> <span class="n">pred_slot_labels</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="p">.</span><span class="n">float32</span>
+    <span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p> </p>
+
+<p>매 epoch마다 validation을 수행합니다.<br />
+validation이 끝날 때마다 무언가를 하고 싶다면 validation_epoch_end()에 추가하면 됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td> --><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_nb</span><span class="p">):</span>
+    <span class="n">input_ids</span><span class="p">,</span> <span class="n">attention_mask</span><span class="p">,</span> <span class="n">token_type_ids</span><span class="p">,</span> <span class="n">slot_labels</span> <span class="o">=</span> <span class="n">batch</span>
+
+    <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span>
+        <span class="n">input_ids</span><span class="o">=</span><span class="n">input_ids</span><span class="p">,</span>
+        <span class="n">attention_mask</span><span class="o">=</span><span class="n">attention_mask</span><span class="p">,</span>
+        <span class="n">token_type_ids</span><span class="o">=</span><span class="n">token_type_ids</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_calculate_loss</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">slot_labels</span><span class="p">)</span>
+    <span class="n">gt_slot_labels</span><span class="p">,</span> <span class="n">pred_slot_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_convert_ids_to_labels</span><span class="p">(</span>
+        <span class="n">outputs</span><span class="p">,</span> <span class="n">slot_labels</span>
+    <span class="p">)</span>
+
+    <span class="n">val_acc</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_f1_score</span><span class="p">(</span><span class="n">gt_slot_labels</span><span class="p">,</span> <span class="n">pred_slot_labels</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s">"val_loss"</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span> <span class="s">"val_acc"</span><span class="p">:</span> <span class="n">val_acc</span><span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">validation_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+    <span class="n">val_loss</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">stack</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="s">"val_loss"</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">]).</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">val_acc</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">stack</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="s">"val_acc"</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">]).</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="n">tensorboard_log</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">"val_loss"</span><span class="p">:</span> <span class="n">val_loss</span><span class="p">,</span>
+        <span class="s">"val_acc"</span><span class="p">:</span> <span class="n">val_acc</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s">"val_loss"</span><span class="p">:</span> <span class="n">val_loss</span><span class="p">,</span> <span class="s">"progress_bar"</span><span class="p">:</span> <span class="n">tensorboard_log</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p> </p>
+
+<p>학습이 끝난 후 평가 할 test step도 동일하게 작성해줍니다.<br />
+실제 추론한 결과를 리턴 받고 싶다면 test_epoch_end()의 return 값이 추가하면 됩니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+</pre></td> --><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_nb</span><span class="p">):</span>
+    <span class="n">input_ids</span><span class="p">,</span> <span class="n">attention_mask</span><span class="p">,</span> <span class="n">token_type_ids</span><span class="p">,</span> <span class="n">slot_labels</span> <span class="o">=</span> <span class="n">batch</span>
+
+    <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span>
+        <span class="n">input_ids</span><span class="o">=</span><span class="n">input_ids</span><span class="p">,</span>
+        <span class="n">attention_mask</span><span class="o">=</span><span class="n">attention_mask</span><span class="p">,</span>
+        <span class="n">token_type_ids</span><span class="o">=</span><span class="n">token_type_ids</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">gt_slot_labels</span><span class="p">,</span> <span class="n">pred_slot_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_convert_ids_to_labels</span><span class="p">(</span>
+        <span class="n">outputs</span><span class="p">,</span> <span class="n">slot_labels</span>
+    <span class="p">)</span>
+
+    <span class="n">test_acc</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_f1_score</span><span class="p">(</span><span class="n">gt_slot_labels</span><span class="p">,</span> <span class="n">pred_slot_labels</span><span class="p">)</span>
+
+    <span class="n">test_step_outputs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">"test_acc"</span><span class="p">:</span> <span class="n">test_acc</span><span class="p">,</span>
+        <span class="s">"gt_labels"</span><span class="p">:</span> <span class="n">gt_slot_labels</span><span class="p">,</span>
+        <span class="s">"pred_labels"</span><span class="p">:</span> <span class="n">pred_slot_labels</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">test_step_outputs</span>
+
+<span class="k">def</span> <span class="nf">test_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+    <span class="n">test_acc</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">stack</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="s">"test_acc"</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">]).</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="n">test_step_outputs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">"test_acc"</span><span class="p">:</span> <span class="n">test_acc</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">test_step_outputs</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p> </p>
+
+<p>모델 생성을 완료하였습니다.<br />
+최종 소스코드입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+</pre></td> --><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="n">nn</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="n">F</span>
+<span class="kn">import</span> <span class="nn">pytorch_lightning</span> <span class="k">as</span> <span class="n">pl</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">BertConfig</span><span class="p">,</span> <span class="n">BertModel</span><span class="p">,</span> <span class="n">AdamW</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span> <span class="nn">seqeval.metrics</span> <span class="kn">import</span> <span class="n">f1_score</span>
+
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">load_slot_labels</span>
+<span class="kn">from</span> <span class="nn">dataset</span> <span class="kn">import</span> <span class="n">CorpusDataset</span>
+
+<span class="k">class</span> <span class="nc">SpacingBertModel</span><span class="p">(</span><span class="n">pl</span><span class="p">.</span><span class="n">LightningModule</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">,</span>
+        <span class="n">dataset</span><span class="p">:</span> <span class="n">CorpusDataset</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">slot_labels_type</span> <span class="o">=</span> <span class="n">load_slot_labels</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">pad_token_id</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="p">.</span><span class="n">bert_config</span> <span class="o">=</span> <span class="n">BertConfig</span><span class="p">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">bert_model</span><span class="p">,</span> <span class="n">num_labels</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">slot_labels_type</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">BertModel</span><span class="p">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">bert_model</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">bert_config</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Dropout</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">dropout_rate</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">linear</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">bert_config</span><span class="p">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">slot_labels_type</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_ids</span><span class="p">,</span> <span class="n">attention_mask</span><span class="p">,</span> <span class="n">token_type_ids</span><span class="p">):</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">(</span>
+            <span class="n">input_ids</span><span class="o">=</span><span class="n">input_ids</span><span class="p">,</span>
+            <span class="n">attention_mask</span><span class="o">=</span><span class="n">attention_mask</span><span class="p">,</span>
+            <span class="n">token_type_ids</span><span class="o">=</span><span class="n">token_type_ids</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">linear</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">x</span>
+
+    <span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_nb</span><span class="p">):</span>
+
+        <span class="n">input_ids</span><span class="p">,</span> <span class="n">attention_mask</span><span class="p">,</span> <span class="n">token_type_ids</span><span class="p">,</span> <span class="n">slot_labels</span> <span class="o">=</span> <span class="n">batch</span>
+
+        <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span>
+            <span class="n">input_ids</span><span class="o">=</span><span class="n">input_ids</span><span class="p">,</span>
+            <span class="n">attention_mask</span><span class="o">=</span><span class="n">attention_mask</span><span class="p">,</span>
+            <span class="n">token_type_ids</span><span class="o">=</span><span class="n">token_type_ids</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_calculate_loss</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">slot_labels</span><span class="p">)</span>
+        <span class="n">tensorboard_logs</span> <span class="o">=</span> <span class="p">{</span><span class="s">"train_loss"</span><span class="p">:</span> <span class="n">loss</span><span class="p">}</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s">"loss"</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span> <span class="s">"log"</span><span class="p">:</span> <span class="n">tensorboard_logs</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_nb</span><span class="p">):</span>
+
+        <span class="n">input_ids</span><span class="p">,</span> <span class="n">attention_mask</span><span class="p">,</span> <span class="n">token_type_ids</span><span class="p">,</span> <span class="n">slot_labels</span> <span class="o">=</span> <span class="n">batch</span>
+
+        <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span>
+            <span class="n">input_ids</span><span class="o">=</span><span class="n">input_ids</span><span class="p">,</span>
+            <span class="n">attention_mask</span><span class="o">=</span><span class="n">attention_mask</span><span class="p">,</span>
+            <span class="n">token_type_ids</span><span class="o">=</span><span class="n">token_type_ids</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_calculate_loss</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">slot_labels</span><span class="p">)</span>
+        <span class="n">gt_slot_labels</span><span class="p">,</span> <span class="n">pred_slot_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_convert_ids_to_labels</span><span class="p">(</span>
+            <span class="n">outputs</span><span class="p">,</span> <span class="n">slot_labels</span>
+        <span class="p">)</span>
+
+        <span class="n">val_acc</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_f1_score</span><span class="p">(</span><span class="n">gt_slot_labels</span><span class="p">,</span> <span class="n">pred_slot_labels</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s">"val_loss"</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span> <span class="s">"val_acc"</span><span class="p">:</span> <span class="n">val_acc</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">validation_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+        <span class="n">val_loss</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">stack</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="s">"val_loss"</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">]).</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">val_acc</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">stack</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="s">"val_acc"</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">]).</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="n">tensorboard_log</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">"val_loss"</span><span class="p">:</span> <span class="n">val_loss</span><span class="p">,</span>
+            <span class="s">"val_acc"</span><span class="p">:</span> <span class="n">val_acc</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s">"val_loss"</span><span class="p">:</span> <span class="n">val_loss</span><span class="p">,</span> <span class="s">"progress_bar"</span><span class="p">:</span> <span class="n">tensorboard_log</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_nb</span><span class="p">):</span>
+
+        <span class="n">input_ids</span><span class="p">,</span> <span class="n">attention_mask</span><span class="p">,</span> <span class="n">token_type_ids</span><span class="p">,</span> <span class="n">slot_labels</span> <span class="o">=</span> <span class="n">batch</span>
+
+        <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span>
+            <span class="n">input_ids</span><span class="o">=</span><span class="n">input_ids</span><span class="p">,</span>
+            <span class="n">attention_mask</span><span class="o">=</span><span class="n">attention_mask</span><span class="p">,</span>
+            <span class="n">token_type_ids</span><span class="o">=</span><span class="n">token_type_ids</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">gt_slot_labels</span><span class="p">,</span> <span class="n">pred_slot_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_convert_ids_to_labels</span><span class="p">(</span>
+            <span class="n">outputs</span><span class="p">,</span> <span class="n">slot_labels</span>
+        <span class="p">)</span>
+
+        <span class="n">test_acc</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_f1_score</span><span class="p">(</span><span class="n">gt_slot_labels</span><span class="p">,</span> <span class="n">pred_slot_labels</span><span class="p">)</span>
+
+        <span class="n">test_step_outputs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">"test_acc"</span><span class="p">:</span> <span class="n">test_acc</span><span class="p">,</span>
+            <span class="s">"gt_labels"</span><span class="p">:</span> <span class="n">gt_slot_labels</span><span class="p">,</span>
+            <span class="s">"pred_labels"</span><span class="p">:</span> <span class="n">pred_slot_labels</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">test_step_outputs</span>
+
+    <span class="k">def</span> <span class="nf">test_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+        <span class="n">test_acc</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">stack</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="s">"test_acc"</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">]).</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="n">gt_labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">pred_labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">:</span>
+            <span class="n">gt_labels</span><span class="p">.</span><span class="n">extend</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s">"gt_labels"</span><span class="p">])</span>
+            <span class="n">pred_labels</span><span class="p">.</span><span class="n">extend</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s">"pred_labels"</span><span class="p">])</span>
+
+        <span class="n">test_step_outputs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">"test_acc"</span><span class="p">:</span> <span class="n">test_acc</span><span class="p">,</span>
+            <span class="s">"gt_labels"</span><span class="p">:</span> <span class="n">gt_labels</span><span class="p">,</span>
+            <span class="s">"pred_labels"</span><span class="p">:</span> <span class="n">pred_labels</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">test_step_outputs</span>
+
+    <span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">AdamW</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">2e-5</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">train_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s">"train"</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">train_batch_size</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">val_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s">"val"</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">eval_batch_size</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s">"test"</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">eval_batch_size</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_calculate_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+        <span class="n">active_logits</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">slot_labels_type</span><span class="p">))</span>
+        <span class="n">active_labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">cross_entropy</span><span class="p">(</span><span class="n">active_logits</span><span class="p">,</span> <span class="n">active_labels</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">loss</span>
+
+    <span class="k">def</span> <span class="nf">_f1_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gt_slot_labels</span><span class="p">,</span> <span class="n">pred_slot_labels</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="p">.</span><span class="n">tensor</span><span class="p">(</span>
+            <span class="n">f1_score</span><span class="p">(</span><span class="n">gt_slot_labels</span><span class="p">,</span> <span class="n">pred_slot_labels</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="p">.</span><span class="n">float32</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_convert_ids_to_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">slot_labels</span><span class="p">):</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">y_hat</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nb">max</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">y_hat</span> <span class="o">=</span> <span class="n">y_hat</span><span class="p">.</span><span class="n">detach</span><span class="p">().</span><span class="n">cpu</span><span class="p">().</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">slot_label_ids</span> <span class="o">=</span> <span class="n">slot_labels</span><span class="p">.</span><span class="n">detach</span><span class="p">().</span><span class="n">cpu</span><span class="p">().</span><span class="n">numpy</span><span class="p">()</span>
+
+        <span class="n">slot_label_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">label</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">slot_labels_type</span><span class="p">)}</span>
+        <span class="n">slot_gt_labels</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">slot_label_ids</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+        <span class="n">slot_pred_labels</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">slot_label_ids</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">slot_label_ids</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">slot_label_ids</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">slot_label_ids</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="p">.</span><span class="n">pad_token_id</span><span class="p">:</span>
+                    <span class="n">slot_gt_labels</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="n">slot_label_map</span><span class="p">[</span><span class="n">slot_label_ids</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]])</span>
+                    <span class="n">slot_pred_labels</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="n">slot_label_map</span><span class="p">[</span><span class="n">y_hat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]])</span>
+
+        <span class="k">return</span> <span class="n">slot_gt_labels</span><span class="p">,</span> <span class="n">slot_pred_labels</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET

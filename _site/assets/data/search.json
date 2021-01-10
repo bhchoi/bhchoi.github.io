@@ -1,6 +1,15 @@
 [
   
   {
+    "title": "BERT를 이용한 한국어 띄어쓰기 모델 만들기 - 03. 모델",
+    "url": "/posts/BERT%EB%A5%BC_%EC%9D%B4%EC%9A%A9%ED%95%9C_%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%9D%84%EC%96%B4%EC%93%B0%EA%B8%B0_03/",
+    "categories": "nlp",
+    "tags": "bert, spacing, 띄어쓰기",
+    "date": "2021-01-11 00:11:00 +0900",
+    "snippet": "Config 설정학습에 필요한 각종 값과 하이퍼파라미터입니다.argparse를 이용해 인자로 받을 수도 있으나, yaml로 정의하여 불러오도록 하겠습니다.123456789101112task: korean_spacing_20210101log_path: logsbert_model: monologg/koberttrain_data_path: data/nikl_newspaper/train.txtval_data_path: data/nikl_newspaper/val.txttest_data_path: data/nikl_newspaper/te..."
+  },
+  
+  {
     "title": "BERT를 이용한 한국어 띄어쓰기 모델 만들기 - 02. 데이터 전처리",
     "url": "/posts/BERT%EB%A5%BC_%EC%9D%B4%EC%9A%A9%ED%95%9C_%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%9D%84%EC%96%B4%EC%93%B0%EA%B8%B0_02/",
     "categories": "nlp",
