@@ -1,6 +1,15 @@
 [
   
   {
+    "title": "[논문리뷰]Convolutional neural networks for sentence classification",
+    "url": "/posts/Convolutional_neural_networks_for_sentence_classification/",
+    "categories": "nlp",
+    "tags": "cnn, pretrained word vector",
+    "date": "2021-01-18 23:11:00 +0900",
+    "snippet": "  https://arxiv.org/abs/1408.5882Abstractpretraind word vector와 CNN을 sentence classification task에 적용하여 좋은 결과를 얻음1 Introduction이번 논문에서는, unsupervised neural language model을 통해 학습한 word vector를 이용하여 cnn을 학습한다.word vector는 google news 천억 단어로 학습되었다. (https://code.google.com/p/word2vec)먼저 word vector..."
+  },
+  
+  {
     "title": "BERT를 이용한 한국어 띄어쓰기 모델 만들기 - 04. 학습",
     "url": "/posts/BERT%EB%A5%BC_%EC%9D%B4%EC%9A%A9%ED%95%9C_%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%9D%84%EC%96%B4%EC%93%B0%EA%B8%B0_04/",
     "categories": "nlp",
