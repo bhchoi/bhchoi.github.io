@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://localhost:1313/post/python/nlp/paper/attention_is_all_you_need/</loc>
+    <loc>http://localhost:1313/post/nlp/paper/attention_is_all_you_need/</loc>
     <lastmod>2021-03-03T20:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -58,7 +58,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/python/nlp/paper/sequence_to_sequence_learning_with_neural_networks/</loc>
+    <loc>http://localhost:1313/post/nlp/paper/sequence_to_sequence_learning_with_neural_networks/</loc>
     <lastmod>2021-02-13T22:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -79,7 +79,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/python/nlp/paper/convolutional_neural_networks_for_sentence_classification/</loc>
+    <loc>http://localhost:1313/post/nlp/paper/convolutional_neural_networks_for_sentence_classification/</loc>
     <lastmod>2021-01-18T22:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -107,7 +107,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/python/nlp/dev/bert_korean_spacing_04/</loc>
+    <loc>http://localhost:1313/post/nlp/dev/bert_korean_spacing_04/</loc>
     <lastmod>2021-01-14T20:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -128,21 +128,21 @@
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/python/nlp/dev/bert_korean_spacing_03/</loc>
+    <loc>http://localhost:1313/post/nlp/dev/bert_korean_spacing_03/</loc>
     <lastmod>2021-01-10T23:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/python/nlp/dev/bert_korean_spacing_02/</loc>
+    <loc>http://localhost:1313/post/nlp/dev/bert_korean_spacing_02/</loc>
     <lastmod>2021-01-09T23:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/python/nlp/dev/bert_korean_spacing_01/</loc>
+    <loc>http://localhost:1313/post/nlp/dev/bert_korean_spacing_01/</loc>
     <lastmod>2021-01-07T23:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
