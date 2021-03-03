@@ -1,6 +1,0 @@
-I"�<h1 id="docstring이란">Docstring이란?</h1>
-<ul>
-  <li>docstring은 module, function, class, method에 대한 문서화 작업을 말한다.</li>
-  <li>docstring은 __doc__ special attribute에 저장된다.</li>
-</ul>
-:ET

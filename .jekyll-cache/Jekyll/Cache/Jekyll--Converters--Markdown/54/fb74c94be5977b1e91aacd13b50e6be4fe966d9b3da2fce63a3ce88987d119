@@ -1,8 +1,0 @@
-I"�<h1 id="coding-convention이란">Coding Convention이란?</h1>
-<ul>
-  <li>coding convention은 code를 작성하는 구체적인 가이드라인이다.</li>
-  <li>협업을 위해서는 읽기 쉽고 일관적인 코드를 작성하는 것이 중요하다.</li>
-  <li>하지만 매우 많은 기준을 모두 지키면서 code를 작성하는 것이 매우 힘들다.</li>
-  <li>자동화 툴을 적용해보자</li>
-</ul>
-:ET
