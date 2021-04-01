@@ -6,13 +6,22 @@
     <description>Recent content in Tags on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 03 Mar 2021 20:11:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 Mar 2021 23:25:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>attentio</title>
-      <link>http://localhost:1313/tags/attentio/</link>
+      <title>bert</title>
+      <link>http://localhost:1313/tags/bert/</link>
+      <pubDate>Fri, 19 Mar 2021 23:25:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/tags/bert/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>attention</title>
+      <link>http://localhost:1313/tags/attention/</link>
       <pubDate>Wed, 03 Mar 2021 20:11:00 +0800</pubDate>
       
-      <guid>http://localhost:1313/tags/attentio/</guid>
+      <guid>http://localhost:1313/tags/attention/</guid>
       <description></description>
     </item>
     
@@ -22,15 +31,6 @@
       <pubDate>Wed, 03 Mar 2021 20:11:00 +0800</pubDate>
       
       <guid>http://localhost:1313/tags/transformer/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>attention</title>
-      <link>http://localhost:1313/tags/attention/</link>
-      <pubDate>Tue, 23 Feb 2021 22:11:00 +0800</pubDate>
-      
-      <guid>http://localhost:1313/tags/attention/</guid>
       <description></description>
     </item>
     
@@ -67,15 +67,6 @@
       <pubDate>Mon, 18 Jan 2021 22:11:00 +0800</pubDate>
       
       <guid>http://localhost:1313/tags/pretrained-word-vector/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>bert</title>
-      <link>http://localhost:1313/tags/bert/</link>
-      <pubDate>Thu, 14 Jan 2021 20:11:00 +0800</pubDate>
-      
-      <guid>http://localhost:1313/tags/bert/</guid>
       <description></description>
     </item>
     

@@ -6,7 +6,16 @@
     <description>Recent content in nlp on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 03 Mar 2021 20:11:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/nlp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 Mar 2021 23:25:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/nlp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[논문리뷰] Bert: Pre-training of deep bidirectional transformers for language understanding</title>
+      <link>http://localhost:1313/post/nlp/paper/bert/</link>
+      <pubDate>Fri, 19 Mar 2021 23:25:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/nlp/paper/bert/</guid>
+      <description>Abstract BERT(Bidirectional Encoder Representations from Transformers)는 모든 layer에서 left, right context를 모두 참조하여 unlabeled text로부터 deep bidirectional representations를</description>
+    </item>
+    
     <item>
       <title>[논문리뷰] Attention Is All You Need</title>
       <link>http://localhost:1313/post/nlp/paper/attention_is_all_you_need/</link>
