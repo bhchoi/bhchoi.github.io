@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>attention on Even - A super concise theme for Hugo</title>
-    <link>http://localhost:1313/tags/attention/</link>
+    <link>https://bhchoi.github.io/tags/attention/</link>
     <description>Recent content in attention on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 03 Mar 2021 20:11:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/attention/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Mar 2021 20:11:00 +0800</lastBuildDate><atom:link href="https://bhchoi.github.io/tags/attention/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[논문리뷰] Attention Is All You Need</title>
-      <link>http://localhost:1313/post/nlp/paper/attention_is_all_you_need/</link>
+      <link>https://bhchoi.github.io/post/nlp/paper/attention_is_all_you_need/</link>
       <pubDate>Wed, 03 Mar 2021 20:11:00 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/nlp/paper/attention_is_all_you_need/</guid>
+      <guid>https://bhchoi.github.io/post/nlp/paper/attention_is_all_you_need/</guid>
       <description>Abstract 대부분의 sequence를 처리하는 model들은 RNN, CNN기반의 encoder-decoder model이고, 가장 성능이 좋은 model은 encoder와 decoder를</description>
     </item>
     
     <item>
       <title>[논문리뷰] Neural Machine Translation by Jointly Learning to Align and Translate</title>
-      <link>http://localhost:1313/post/nlp/paper/neural_machine_translation_by_jointly_learning_to_align_and_translate/</link>
+      <link>https://bhchoi.github.io/post/nlp/paper/neural_machine_translation_by_jointly_learning_to_align_and_translate/</link>
       <pubDate>Tue, 23 Feb 2021 22:11:00 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/nlp/paper/neural_machine_translation_by_jointly_learning_to_align_and_translate/</guid>
+      <guid>https://bhchoi.github.io/post/nlp/paper/neural_machine_translation_by_jointly_learning_to_align_and_translate/</guid>
       <description>https://arxiv.org/abs/1409.0473 ABSTRACT encoder-decoder model의 고정된 길이의 vector는 성능향상에 bottleneck으로 작용한다고 생각한다. 이를 개선 할 방법으로, 예측한 target word가 source s</description>
     </item>
     

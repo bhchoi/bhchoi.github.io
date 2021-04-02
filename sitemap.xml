@@ -1,260 +1,260 @@
-<?xml-stylesheet type="text/xsl" href="http://localhost:1313/sitemap.xsl"?>
+<?xml-stylesheet type="text/xsl" href="https://bhchoi.github.io/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://localhost:1313/post/nlp/paper/bert/</loc>
+    <loc>https://bhchoi.github.io/post/nlp/paper/bert/</loc>
     <lastmod>2021-03-19T23:25:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/bert/</loc>
+    <loc>https://bhchoi.github.io/tags/bert/</loc>
     <lastmod>2021-03-19T23:25:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>https://bhchoi.github.io/categories/</loc>
     <lastmod>2021-03-19T23:25:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/</loc>
+    <loc>https://bhchoi.github.io/</loc>
     <lastmod>2021-03-19T23:25:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/categories/nlp/</loc>
+    <loc>https://bhchoi.github.io/categories/nlp/</loc>
     <lastmod>2021-03-19T23:25:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/</loc>
+    <loc>https://bhchoi.github.io/post/</loc>
     <lastmod>2021-03-19T23:25:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>https://bhchoi.github.io/tags/</loc>
     <lastmod>2021-03-19T23:25:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/nlp/paper/attention_is_all_you_need/</loc>
+    <loc>https://bhchoi.github.io/post/nlp/paper/attention_is_all_you_need/</loc>
     <lastmod>2021-03-03T20:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/attention/</loc>
+    <loc>https://bhchoi.github.io/tags/attention/</loc>
     <lastmod>2021-03-03T20:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/transformer/</loc>
+    <loc>https://bhchoi.github.io/tags/transformer/</loc>
     <lastmod>2021-03-03T20:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/nlp/paper/neural_machine_translation_by_jointly_learning_to_align_and_translate/</loc>
+    <loc>https://bhchoi.github.io/post/nlp/paper/neural_machine_translation_by_jointly_learning_to_align_and_translate/</loc>
     <lastmod>2021-02-23T22:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/seq2seq/</loc>
+    <loc>https://bhchoi.github.io/tags/seq2seq/</loc>
     <lastmod>2021-02-23T22:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/nlp/paper/sequence_to_sequence_learning_with_neural_networks/</loc>
+    <loc>https://bhchoi.github.io/post/nlp/paper/sequence_to_sequence_learning_with_neural_networks/</loc>
     <lastmod>2021-02-13T22:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/lstm/</loc>
+    <loc>https://bhchoi.github.io/tags/lstm/</loc>
     <lastmod>2021-02-13T22:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/nlp/paper/convolutional_neural_networks_for_sentence_classification/</loc>
+    <loc>https://bhchoi.github.io/post/nlp/paper/convolutional_neural_networks_for_sentence_classification/</loc>
     <lastmod>2021-01-18T22:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/cnn/</loc>
+    <loc>https://bhchoi.github.io/tags/cnn/</loc>
     <lastmod>2021-01-18T22:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/pretrained-word-vector/</loc>
+    <loc>https://bhchoi.github.io/tags/pretrained-word-vector/</loc>
     <lastmod>2021-01-18T22:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/nlp/dev/bert_korean_spacing_04/</loc>
+    <loc>https://bhchoi.github.io/post/nlp/dev/bert_korean_spacing_04/</loc>
     <lastmod>2021-01-14T20:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/spacing/</loc>
+    <loc>https://bhchoi.github.io/tags/spacing/</loc>
     <lastmod>2021-01-14T20:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/%EB%9D%84%EC%96%B4%EC%93%B0%EA%B8%B0/</loc>
+    <loc>https://bhchoi.github.io/tags/%EB%9D%84%EC%96%B4%EC%93%B0%EA%B8%B0/</loc>
     <lastmod>2021-01-14T20:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/nlp/dev/bert_korean_spacing_03/</loc>
+    <loc>https://bhchoi.github.io/post/nlp/dev/bert_korean_spacing_03/</loc>
     <lastmod>2021-01-10T23:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/nlp/dev/bert_korean_spacing_02/</loc>
+    <loc>https://bhchoi.github.io/post/nlp/dev/bert_korean_spacing_02/</loc>
     <lastmod>2021-01-09T23:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/nlp/dev/bert_korean_spacing_01/</loc>
+    <loc>https://bhchoi.github.io/post/nlp/dev/bert_korean_spacing_01/</loc>
     <lastmod>2021-01-07T23:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/python/dictionary_default_value/</loc>
+    <loc>https://bhchoi.github.io/post/python/dictionary_default_value/</loc>
     <lastmod>2020-12-16T09:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/categories/python/</loc>
+    <loc>https://bhchoi.github.io/categories/python/</loc>
     <lastmod>2020-12-16T09:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/python/</loc>
+    <loc>https://bhchoi.github.io/tags/python/</loc>
     <lastmod>2020-12-16T09:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/python-tricks/</loc>
+    <loc>https://bhchoi.github.io/tags/python-tricks/</loc>
     <lastmod>2020-12-16T09:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/python/decorator/</loc>
+    <loc>https://bhchoi.github.io/post/python/decorator/</loc>
     <lastmod>2020-06-06T13:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/decorator/</loc>
+    <loc>https://bhchoi.github.io/tags/decorator/</loc>
     <lastmod>2020-06-06T13:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/pep-318/</loc>
+    <loc>https://bhchoi.github.io/tags/pep-318/</loc>
     <lastmod>2020-06-06T13:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/python/coding_convention/</loc>
+    <loc>https://bhchoi.github.io/post/python/coding_convention/</loc>
     <lastmod>2020-05-10T13:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/convention/</loc>
+    <loc>https://bhchoi.github.io/tags/convention/</loc>
     <lastmod>2020-05-10T13:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/formatter/</loc>
+    <loc>https://bhchoi.github.io/tags/formatter/</loc>
     <lastmod>2020-05-10T13:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/style-checker/</loc>
+    <loc>https://bhchoi.github.io/tags/style-checker/</loc>
     <lastmod>2020-05-10T13:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/python/annotation/</loc>
+    <loc>https://bhchoi.github.io/post/python/annotation/</loc>
     <lastmod>2020-05-02T23:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/python/docstring/</loc>
+    <loc>https://bhchoi.github.io/post/python/docstring/</loc>
     <lastmod>2020-05-02T23:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/docstring/</loc>
+    <loc>https://bhchoi.github.io/tags/docstring/</loc>
     <lastmod>2020-05-02T23:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
