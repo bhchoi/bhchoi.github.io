@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 19 Mar 2021 23:25:00 +0800</lastBuildDate><atom:link href="https://bhchoi.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 02 Apr 2021 23:25:00 +0800</lastBuildDate><atom:link href="https://bhchoi.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[논문리뷰] ELECTRA: PRE-TRAINING TEXT ENCODERS AS DISCRIMINATORS RATHER THAN GENERATORS</title>
+      <link>https://bhchoi.github.io/post/nlp/paper/electra/</link>
+      <pubDate>Fri, 02 Apr 2021 23:25:00 +0800</pubDate>
+      
+      <guid>https://bhchoi.github.io/post/nlp/paper/electra/</guid>
+      <description>ABSTRACT BERT와 같은 masked language modeling(MLM) pretraining methods는 input의 일부 tokens를 [MASK]로 치환하고 이를 원본 token으로 복원하면서 학습을 하는 방식이</description>
+    </item>
+    
     <item>
       <title>[논문리뷰] Bert: Pre-training of deep bidirectional transformers for language understanding</title>
       <link>https://bhchoi.github.io/post/nlp/paper/bert/</link>
