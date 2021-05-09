@@ -2,6 +2,55 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bhchoi.github.io/post/nlp/paper/roberta/</loc>
+    <lastmod>2021-04-11T23:25:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bhchoi.github.io/categories/</loc>
+    <lastmod>2021-04-11T23:25:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bhchoi.github.io/</loc>
+    <lastmod>2021-04-11T23:25:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bhchoi.github.io/categories/nlp/</loc>
+    <lastmod>2021-04-11T23:25:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bhchoi.github.io/post/</loc>
+    <lastmod>2021-04-11T23:25:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bhchoi.github.io/tags/roberta/</loc>
+    <lastmod>2021-04-11T23:25:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://bhchoi.github.io/tags/</loc>
+    <lastmod>2021-04-11T23:25:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://bhchoi.github.io/post/nlp/paper/electra/</loc>
     <lastmod>2021-04-02T23:25:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -9,42 +58,7 @@
   </url>
   
   <url>
-    <loc>https://bhchoi.github.io/categories/</loc>
-    <lastmod>2021-04-02T23:25:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://bhchoi.github.io/tags/electra/</loc>
-    <lastmod>2021-04-02T23:25:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://bhchoi.github.io/</loc>
-    <lastmod>2021-04-02T23:25:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://bhchoi.github.io/categories/nlp/</loc>
-    <lastmod>2021-04-02T23:25:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://bhchoi.github.io/post/</loc>
-    <lastmod>2021-04-02T23:25:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://bhchoi.github.io/tags/</loc>
     <lastmod>2021-04-02T23:25:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>roberta on Even - A super concise theme for Hugo</title>
+    <link>https://bhchoi.github.io/tags/roberta/</link>
+    <description>Recent content in roberta on Even - A super concise theme for Hugo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 11 Apr 2021 23:25:00 +0800</lastBuildDate><atom:link href="https://bhchoi.github.io/tags/roberta/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[논문리뷰] RoBERTa: A Robustly Optimized BERT Pretraining Approach</title>
+      <link>https://bhchoi.github.io/post/nlp/paper/roberta/</link>
+      <pubDate>Sun, 11 Apr 2021 23:25:00 +0800</pubDate>
+      
+      <guid>https://bhchoi.github.io/post/nlp/paper/roberta/</guid>
+      <description>Abstract BERT pretraining 할 때 hyperparameters와 training data size가 어떤 영향을 미치는지 재현연구(replication study)를 하였고, BERT는 significantly</description>
+    </item>
+    
+  </channel>
+</rss>

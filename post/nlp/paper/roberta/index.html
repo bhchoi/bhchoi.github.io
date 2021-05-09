@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>[논문리뷰] RoBERTa: A Robustly Optimized BERT Pretraining Approach - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="" /><meta name="description" content="Abstract BERT pretraining 할 때 hyperparameters와 training data size가 어떤 영향을 미치는지 재현연구(replication study)를 하였고, BERT는 significantly" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.80.0 with theme even" />
+
+
+<link rel="canonical" href="https://bhchoi.github.io/post/nlp/paper/roberta/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7f9d2d0732ffc2e753a30f53d2f9429b5d54824ac9a2962f3803a8b7af7ea71.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="[논문리뷰] RoBERTa: A Robustly Optimized BERT Pretraining Approach" />
+<meta property="og:description" content="Abstract BERT pretraining 할 때 hyperparameters와 training data size가 어떤 영향을 미치는지 재현연구(replication study)를 하였고, BERT는 significantly" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://bhchoi.github.io/post/nlp/paper/roberta/" />
+<meta property="article:published_time" content="2021-04-11T23:25:00+08:00" />
+<meta property="article:modified_time" content="2021-04-11T23:25:00+08:00" />
+<meta itemprop="name" content="[논문리뷰] RoBERTa: A Robustly Optimized BERT Pretraining Approach">
+<meta itemprop="description" content="Abstract BERT pretraining 할 때 hyperparameters와 training data size가 어떤 영향을 미치는지 재현연구(replication study)를 하였고, BERT는 significantly">
+<meta itemprop="datePublished" content="2021-04-11T23:25:00+08:00" />
+<meta itemprop="dateModified" content="2021-04-11T23:25:00+08:00" />
+<meta itemprop="wordCount" content="1546">
+
+
+
+<meta itemprop="keywords" content="roberta," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[논문리뷰] RoBERTa: A Robustly Optimized BERT Pretraining Approach"/>
+<meta name="twitter:description" content="Abstract BERT pretraining 할 때 hyperparameters와 training data size가 어떤 영향을 미치는지 재현연구(replication study)를 하였고, BERT는 significantly"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">킹스날 개발 블로그</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">킹스날 개발 블로그</a>
+</div>
+
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="/">Home</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="/post/">Archives</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="/tags/">Tags</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="/categories/">Categories</a>
+    </li>
+  </ul>
+</nav>
+
+<script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+    };
+
+    window.addEventListener('load', (event) => {
+        document.querySelectorAll("mjx-container").forEach(function (x) {
+            x.parentElement.classList += 'has-jax'
+        })
+    });
+
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">[논문리뷰] RoBERTa: A Robustly Optimized BERT Pretraining Approach</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-04-11 </span>
+        <div class="post-category">
+            <a href="/categories/nlp/"> nlp </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#experimental-setup">Experimental Setup</a>
+      <ul>
+        <li><a href="#implementation">Implementation</a></li>
+        <li><a href="#data">Data</a></li>
+      </ul>
+    </li>
+    <li><a href="#training-procedure-analysis">Training Procedure Analysis</a>
+      <ul>
+        <li><a href="#static-vs-dynamic-masking">Static vs. Dynamic Masking</a></li>
+        <li><a href="#model-input-format-and-next-sentence-prediction">Model Input Format and Next Sentence Prediction</a></li>
+        <li><a href="#training-with-large-batches">Training with large batches</a></li>
+        <li><a href="#text-encoding">Text Encoding</a></li>
+      </ul>
+    </li>
+    <li><a href="#roberta">RoBERTa</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="abstract">Abstract</h1>
+<p>BERT pretraining 할 때 hyperparameters와 training data size가 어떤 영향을 미치는지 재현연구(replication study)를 하였고, BERT는 significantly undertrained라는 것을 발견하였다.</p>
+<p> </p>
+<h1 id="introduction">Introduction</h1>
+<p>ELMo, GPT, BERT, XLM, XLNet과 같은 self-training 방법들은 엄청난 성능향상을 가져왔지만, 어떠한 측면이  성능향상에 영향을 줬는지 정확하게 알기가 어렵다.</p>
+<p>BERT를 이용하여 이에 대한 재현연구를 진행하였고, 성능이 향상된 recipe를 제안한다.</p>
+<ul>
+<li>더 큰 batch와 더 많은 data를 이용하여 더 오래 학습을 진행한다.</li>
+<li>next sentence prediction을 수행하지 않는다.</li>
+<li>longer sequence에 대해 학습한다.</li>
+<li>masking pattern을 동적으로(dynamically) 변경한다.</li>
+<li>CC-NEWS라고 불리는 매우 큰 새로운 데이터셋을 구축하였다.</li>
+</ul>
+<p> </p>
+<h1 id="experimental-setup">Experimental Setup</h1>
+<h2 id="implementation">Implementation</h2>
+<p>original BERT의 주요 hyperparameter를 그대로 사용하였고, peak learning rate와 warm up step만 다르게 설정하였다. 추가로 Adam epsilon term이 학습에 매우 민감하다는 것을 발견하였고, batch size가 클 경우 $\beta_2$를 0.98로 하였을때 안정적으로 향상되었다.<br>
+BERT와 달리 random하게 짧은 문장을 넣는 것을 하지 않고, 대부분 full-length에 맞춰 학습하였다.<br>
+ </p>
+<h2 id="data">Data</h2>
+<p>BERT style의 방법들은 대부분 많은 양의 text를 가지고 학습을 한다. roberta는 160GB의 데이터를 수집하여 학습하였다.<br>
+ </p>
+<h1 id="training-procedure-analysis">Training Procedure Analysis</h1>
+<p>BERT base모델과 동일한 설정으로 학습을 진행하였다.<br>
+ </p>
+<h2 id="static-vs-dynamic-masking">Static vs. Dynamic Masking</h2>
+<p>original BERT에서는 한번 masking을 수행하여 매 epoch마다 같은 데이터를 학습하게 된다. 이를 static방식이라고 한다. roberta는 학습셋을 10벌을 복제하여 각각 다르게 masking을 하는 dynamic masking을 적용하였고, 총 40epoch를 학습하였다. 각각의 문장은 총 4번 학습하게 된다.</p>
+<p align="center"><img src="/images/nlp/paper/roberta/table_1.png"></p>
+static 방식보다 dynamic 방식이 조금 더 나은 성능을 보였다.  
+<p> </p>
+<h2 id="model-input-format-and-next-sentence-prediction">Model Input Format and Next Sentence Prediction</h2>
+<p>BERT 논문에서는 NSP가 성능 향상에 중요한 요인이라고 하였으나, 최근 몇몇 연구에서는 NSP에 대해 의문을 제기하고 있다.<br>
+RoBERTa에서는 4가지 실험을 통해 이를 설명하였다.</p>
+<ul>
+<li>NSP loss 포함
+<ul>
+<li>SEGMENT-PAIR : BERT에서 사용한 original input format</li>
+<li>SENTENCE-PAIR : 한 문서 내에서 연속된 senteces pair 혹은 서로 다른 문서에서 가져온 sentence pair</li>
+</ul>
+</li>
+<li>NSP loss 미포함
+<ul>
+<li>FULL-SENTENCES : 한 문서 혹은 연속된 문서에서 연속되는 sentences를 추출</li>
+<li>DOC-SENTENCES : 한 문서 내에서만 연속되는 sentences를 추출</li>
+</ul>
+</li>
+</ul>
+<p align="center"><img src="/images/nlp/paper/roberta/table_2.png"></p>
+먼저 segment와 sentence를 비교하였을때는 segment가 더 성능이 좋았는데, 이는 개별 문장만 사용하는 것이 long range dependencies를 학습 할 수 없기 때문이다.  
+NSP loss를 제거하였을때는 BERT base 결과보다 성능이 좋았으며, 한 문서 내에서만 sentences를 추출하는 방법이 성능이 좋았다.  
+<p> </p>
+<h2 id="training-with-large-batches">Training with large batches</h2>
+<p>최근의 연구들에 따르면 batch size를 크게 하는 것이 속도와 성능에 좋다고 한다. BERT 역시 마찬가지이다.<br>
+BERT base 세팅인 1M steps에 256 senquences는 125K steps/2K size, 31K steps/8K size와 동일한 연산 크기를 가진다.</p>
+<p align="center"><img src="/images/nlp/paper/roberta/table_3.png"></p>
+batch size를 늘리는 것이 MLM의 perplexity를 향상 시키고, end task 성능 또한 향상시킨 것을 볼 수 있다.  
+또한 병렬처리를 더 쉽게 할 수 있다.  
+<p> </p>
+<h2 id="text-encoding">Text Encoding</h2>
+<p>original BERT에서는 heuristic tokenization rules를 이용해 전처리를 한 후 30K 크기의 character level BPE vocabulary를 만들어 사용한다.<br>
+RoBERTa에서는 전처리를 하지 않고, 50K 크기의 byte level BPE vocabulary를 사용한다.</p>
+<p> </p>
+<h1 id="roberta">RoBERTa</h1>
+<p>이전의 내용들은 종합하면 RoBERTa는 dynamic masking, NSP loss가 없는 full-sentences, large mini-batches, large byte-level BPE를 사용한다.<br>
+추가적으로 중요한 2가지 요인이 있다. pretraining에 사용되는 data와 data의 학습 횟수이다. 이 두가지 요소의 중요성을 확인하기 위해 BERT LARGE와 동일한 아키텍쳐의 RoBERTa를 학습하여 결과를 비교하였다.</p>
+<p align="center"><img src="/images/nlp/paper/roberta/table_4.png"></p>
+BERT LARGE 대비하여 RoBERTa가 큰 성능 향상을 보였고 data size를 크게 하는 것과 학습 step 수를 늘리는 것이 효과적이라는 것을 확인할 수 있었다.
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/roberta/">roberta</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/nlp/paper/electra/">
+            <span class="next-text nav-default">[논문리뷰] ELECTRA: PRE-TRAINING TEXT ENCODERS AS DISCRIMINATORS RATHER THAN GENERATORS</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:shinejk.qoo@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/bhchoi" class="iconfont icon-github" title="github"></a>
+  <a href="https://bhchoi.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
