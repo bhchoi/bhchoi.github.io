@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 11 Apr 2021 23:25:00 +0800</lastBuildDate><atom:link href="https://bhchoi.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 15 Apr 2021 23:25:00 +0800</lastBuildDate><atom:link href="https://bhchoi.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[논문리뷰] ALBERT: A Lite BERT for Self-supervised Learning of Language Representations</title>
+      <link>https://bhchoi.github.io/post/nlp/paper/albert/</link>
+      <pubDate>Thu, 15 Apr 2021 23:25:00 +0800</pubDate>
+      
+      <guid>https://bhchoi.github.io/post/nlp/paper/albert/</guid>
+      <description>ABSTRACT pretraining 단계에서 모델 사이즈를 크게 하는 것은 downstream task에서 성능 향상을 가져왔지만, 더 많은 GPU 자원이 필요하고 학습시간도 더 오래 걸리게 되었다. 이 문제를 해결하기</description>
+    </item>
+    
     <item>
       <title>[논문리뷰] RoBERTa: A Robustly Optimized BERT Pretraining Approach</title>
       <link>https://bhchoi.github.io/post/nlp/paper/roberta/</link>
