@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gpt on Even - A super concise theme for Hugo</title>
+    <link>https://bhchoi.github.io/tags/gpt/</link>
+    <description>Recent content in gpt on Even - A super concise theme for Hugo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 28 Apr 2021 23:25:00 +0800</lastBuildDate><atom:link href="https://bhchoi.github.io/tags/gpt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[논문리뷰] Improving language understanding by generative pre-training</title>
+      <link>https://bhchoi.github.io/post/nlp/paper/gpt1/</link>
+      <pubDate>Wed, 28 Apr 2021 23:25:00 +0800</pubDate>
+      
+      <guid>https://bhchoi.github.io/post/nlp/paper/gpt1/</guid>
+      <description>ABSTRACT natural language understanding에는 textual entailment, question answering, document classification 등등 넓고 다양한 task들이 존재한다. unlabeled data는 매우 많지만, 특정 task를 위한 labeled data는 드</description>
+    </item>
+    
+  </channel>
+</rss>

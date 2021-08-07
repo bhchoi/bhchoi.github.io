@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>[논문리뷰] Improving language understanding by generative pre-training - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="" /><meta name="description" content="ABSTRACT natural language understanding에는 textual entailment, question answering, document classification 등등 넓고 다양한 task들이 존재한다. unlabeled data는 매우 많지만, 특정 task를 위한 labeled data는 드" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.80.0 with theme even" />
+
+
+<link rel="canonical" href="https://bhchoi.github.io/post/nlp/paper/gpt1/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7f9d2d0732ffc2e753a30f53d2f9429b5d54824ac9a2962f3803a8b7af7ea71.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="[논문리뷰] Improving language understanding by generative pre-training" />
+<meta property="og:description" content="ABSTRACT natural language understanding에는 textual entailment, question answering, document classification 등등 넓고 다양한 task들이 존재한다. unlabeled data는 매우 많지만, 특정 task를 위한 labeled data는 드" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://bhchoi.github.io/post/nlp/paper/gpt1/" />
+<meta property="article:published_time" content="2021-04-28T23:25:00+08:00" />
+<meta property="article:modified_time" content="2021-04-28T23:25:00+08:00" />
+<meta itemprop="name" content="[논문리뷰] Improving language understanding by generative pre-training">
+<meta itemprop="description" content="ABSTRACT natural language understanding에는 textual entailment, question answering, document classification 등등 넓고 다양한 task들이 존재한다. unlabeled data는 매우 많지만, 특정 task를 위한 labeled data는 드">
+<meta itemprop="datePublished" content="2021-04-28T23:25:00+08:00" />
+<meta itemprop="dateModified" content="2021-04-28T23:25:00+08:00" />
+<meta itemprop="wordCount" content="1913">
+
+
+
+<meta itemprop="keywords" content="gpt,nlp," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[논문리뷰] Improving language understanding by generative pre-training"/>
+<meta name="twitter:description" content="ABSTRACT natural language understanding에는 textual entailment, question answering, document classification 등등 넓고 다양한 task들이 존재한다. unlabeled data는 매우 많지만, 특정 task를 위한 labeled data는 드"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">킹스날 개발 블로그</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">킹스날 개발 블로그</a>
+</div>
+
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="/">Home</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="/post/">Archives</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="/tags/">Tags</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="/categories/">Categories</a>
+    </li>
+  </ul>
+</nav>
+
+<script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+    };
+
+    window.addEventListener('load', (event) => {
+        document.querySelectorAll("mjx-container").forEach(function (x) {
+            x.parentElement.classList += 'has-jax'
+        })
+    });
+
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">[논문리뷰] Improving language understanding by generative pre-training</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-04-28 </span>
+        <div class="post-category">
+            <a href="/categories/nlp/"> nlp </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#abstract">ABSTRACT</a></li>
+    <li><a href="#introduction">INTRODUCTION</a></li>
+    <li><a href="#framework">Framework</a>
+      <ul>
+        <li><a href="#unsupervised-pre-training">Unsupervised pre-training</a></li>
+        <li><a href="#supervised-fine-tuning">Supervised fine-tuning</a></li>
+        <li><a href="#task-specific-input-transformations">Task-specific input transformations</a></li>
+      </ul>
+    </li>
+    <li><a href="#experiments">Experiments</a>
+      <ul>
+        <li><a href="#unsupervised-pre-training-1">Unsupervised pre-training</a></li>
+        <li><a href="#supervised-fine-tuning-1">Supervised fine-tuning</a></li>
+      </ul>
+    </li>
+    <li><a href="#analysis">Analysis</a>
+      <ul>
+        <li><a href="#impact-of-number-of-layers-transferred">Impact of number of layers transferred</a></li>
+        <li><a href="#zero-shot-behaviors">Zero-shot Behaviors</a></li>
+        <li><a href="#ablation-studies">Ablation studies</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="abstract">ABSTRACT</h1>
+<p>natural language understanding에는 textual entailment, question answering, document classification 등등 넓고 다양한 task들이 존재한다.</p>
+<p>unlabeled data는 매우 많지만, 특정 task를 위한 labeled data는 드물기 때문에 각 task별로 좋은 성능의 모델을 만드는 것이 쉽지 않다.</p>
+<p>그래서 다양한 unlabeled text를 이용하여 generative pre-training을 수행하여 language model을 만들고, 각 tasks에 맞게 discriminative fine-tuning하는 방법을 소개한다.</p>
+<p>결과적으로 각각 task를 위해 만들어진 아키텍처에 비해 더 좋은 성능을 보였다.</p>
+<p> </p>
+<h1 id="introduction">INTRODUCTION</h1>
+<p>딥러닝 방법은 많은 양의 labeled data를 필요로 한다. 하지만 label 작업은 많은 시간과 돈이 소요되므로 unlabeled data를 통해 학습을 하는 것은 매우 중요하다.</p>
+<p>ublabeled data에서 중요한 정보를 학습하는 것에는 2가지 어려움이 존재한다.</p>
+<p>첫째는 어떤한 optimization objectives가 text representations를 학습하는데 효율적인지 불명확하다는 것이고, 둘째는, 학습한 representations를 target task에 transfer하는 가장 효율적인 방법에 대한 합의가 없다는 것이다.</p>
+<p>본 논문에서는 unsupervised pre-training 단계와 supervised fine-tuning 단계를 이용한 semi-supervised  방법을 제안한다. 이를 통해 universal representation을 학습하고 조금의 변형으로 다양한 task에 적용한다. 모델 아키텍처로는 Transformer를 사용한다.</p>
+<p> </p>
+<h1 id="framework">Framework</h1>
+<h2 id="unsupervised-pre-training">Unsupervised pre-training</h2>
+<p>unsupervised corpus의 tokens에 대해 likelihood를 최대화하는 standard language modeling objective를 사용한다.</p>
+<p align="center"><img src="/images/nlp/paper/gpt1/eq_4.png"></p>
+<p>k는 context window size이며, P는 neural network의 parameter Θ를 사용하여 모델링된다. parameter는  stochastic gradient descent를 사용해 학습한다.</p>
+<p>multi-layer Transformer decoder를 아키텍처로 사용한다. 먼저 input context token에 대해 multi headed self-attention을 수행하고, position-wise feedforward layer를 통해 target token에 대한 output distribution을 생성한다.</p>
+<p align="center"><img src="/images/nlp/paper/gpt1/eq_4.png"></p>
+<p>$U = (u_-k,&hellip;,u_-1)$은 tokens의 context vector이며, n은 layer의 개수, $W_e$는 token embedding matrix, $W_p$는 position embedding matrix이다.</p>
+<p> </p>
+<h2 id="supervised-fine-tuning">Supervised fine-tuning</h2>
+<p>pre-training 이후 target task에 대해 parameter fine-tuning 단계를 진행한다. fine-tuning 단계에서 사용하는 labeled dataset은 input tokens의 sequence와 그에 대한 label y로 이루어져 있다고 가정한다.</p>
+<p>input은 마지막 transformer block의 activation h를 얻기 위해 pre-trained model에 입력되고, 추가적인 linear output layer를 통해 y를 예측한다.</p>
+<p align="center"><img src="/images/nlp/paper/gpt1/eq_4.png"></p>
+<p>이렇게 함으로써 아래 objective를 최대화 할 수 있다.</p>
+<p align="center"><img src="/images/nlp/paper/gpt1/eq_4.png"></p>
+<p>language modeling을 보조지표로(auxiliary objective) 포함하는 것이 fine-tuning 단계에서 generalization을 향상시키고 convergence를 가속화한다는 것을 발견하였다.</p>
+<p>weight λ를 이용해 아래 수식에 대해 최적화를 수행한다.</p>
+<p align="center"><img src="/images/nlp/paper/gpt1/eq_4.png"></p>
+<p>종합하자면 fine-tuning 단계에서 추가되는 parameters는 $W_y$와 embeddings를 위한 delimiter tokens이다.</p>
+<p> </p>
+<h2 id="task-specific-input-transformations">Task-specific input transformations</h2>
+<p>text classification과 같은 tasks는 위에서 언급한 방식으로 fine-tuning이 가능하다. 하지만 textual entailment나 question answering과 같이 여러개의 문장이 입력으로 필요한 경우에는 조금의 변형이 필요하다.</p>
+<p align="center"><img src="/images/nlp/paper/gpt1/figure_1.png"></p>  
+<ul>
+<li>Textual entailment
+<ul>
+<li>premise p와 hypothesis h를 delimiter token을 이용하여 연결한다.</li>
+</ul>
+</li>
+<li>similarity
+<ul>
+<li>두 문장에는 고유한 순서가 없다. 이를 반영하기 위해 가능한 모든 문장의 순서를 input sequence로 만들고 각각 representations를 만들어서 add한다.</li>
+</ul>
+</li>
+<li>Question Answering and Commonsense Reasoning
+<ul>
+<li>document, question, answer를 연결하여 각각 학습하고, softmax를 통해 output distribution을 구한다.</li>
+</ul>
+</li>
+</ul>
+<p> </p>
+<h1 id="experiments">Experiments</h1>
+<h2 id="unsupervised-pre-training-1">Unsupervised pre-training</h2>
+<p>pre-train 단계에서는 다양한 분야의 7,000권의 책으로 이루어진 BooksCorpus dataset을 사용한다. 연속적인 텍스트가 많이 존재하여 long-range information을 학습할 수 있다.</p>
+<p> </p>
+<h2 id="supervised-fine-tuning-1">Supervised fine-tuning</h2>
+<p>fine-tuning에 사용한 dataset은 아래와 같다.</p>
+<p align="center"><img src="/images/nlp/paper/gpt1/table_1.png"></p>  
+<p>다양한 NLI tasks에서 성능 향상이 크게 이루어졌다.</p>
+<p align="center"><img src="/images/nlp/paper/gpt1/table_2.png"></p>  
+<p>question answering과 commonsense reasoning에서도 좋은 성능을 보였다.</p>
+<p align="center"><img src="/images/nlp/paper/gpt1/table_3.png"></p>  
+<p>classification과 semantic similarity에서도 sota를 갱신하거나 이전 sota모델에 근접한 성능을 보였다.</p>
+<p align="center"><img src="/images/nlp/paper/gpt1/table_4.png"></p>  
+<p> </p>
+<h1 id="analysis">Analysis</h1>
+<h2 id="impact-of-number-of-layers-transferred">Impact of number of layers transferred</h2>
+<p>transformer layer의 수가 성능에 얼마나 영향을 미치는지 실험을 하였고, layer의 수가 증가할때마다 성능이 향상되는 것을 확인할 수 있다.</p>
+<p align="center"><img src="/images/nlp/paper/gpt1/figure_2.png"></p>  
+<p> </p>
+<h2 id="zero-shot-behaviors">Zero-shot Behaviors</h2>
+<p>pre-training이 진행됨에 따라 각 tasks의 성능이 향상되는 것을 확인할 수 있다. 또한 transformer를 사용하였을 때 LSTM 보다 성능이 좋을 것을 확인할 수 있다.</p>
+<p align="center"><img src="/images/nlp/paper/gpt1/figure_3.png"></p>
+<p> </p>
+<h2 id="ablation-studies">Ablation studies</h2>
+<p>QQP, MNLI, QNLI, RTE와 같이 dataset의 규모가 큰 경우 auxiliary objective를 사용하는 것이 성능에 좋고, dataset의 규모가 작은 경우는 제외하는 것이 성능에 더 좋았다.
+pre-training을 하지 않았을 경우는 성능이 매우 좋지 않았다.
+또한 transformer를 사용하는 것이 LSTM을 사용하는 것 보다 모든 경우에 더 성능이 좋았다.</p>
+<p align="center"><img src="/images/nlp/paper/gpt1/table_5.png"></p>
+<p> </p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/gpt/">gpt</a>
+          <a href="/tags/nlp/">nlp</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/nlp/paper/elmo/">
+            <span class="next-text nav-default">[논문리뷰] Deep contextualized word representations</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:shinejk.qoo@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/bhchoi" class="iconfont icon-github" title="github"></a>
+  <a href="https://bhchoi.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
