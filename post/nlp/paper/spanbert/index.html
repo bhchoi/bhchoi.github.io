@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>[논문리뷰] SpanBERT: Improving Pre-training by Representing and Predicting Spans - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="" /><meta name="description" content="Abstract text의 span을 잘 표현하고 예측하는 pre-training 방법인 SpanBERT를 제안 random token이 아닌 contiguous random span을 masking 개별 token representations" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.80.0 with theme even" />
+
+
+<link rel="canonical" href="https://bhchoi.github.io/post/nlp/paper/spanbert/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7f9d2d0732ffc2e753a30f53d2f9429b5d54824ac9a2962f3803a8b7af7ea71.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="[논문리뷰] SpanBERT: Improving Pre-training by Representing and Predicting Spans" />
+<meta property="og:description" content="Abstract text의 span을 잘 표현하고 예측하는 pre-training 방법인 SpanBERT를 제안 random token이 아닌 contiguous random span을 masking 개별 token representations" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://bhchoi.github.io/post/nlp/paper/spanbert/" />
+<meta property="article:published_time" content="2021-05-12T23:25:00+08:00" />
+<meta property="article:modified_time" content="2021-05-12T23:25:00+08:00" />
+<meta itemprop="name" content="[논문리뷰] SpanBERT: Improving Pre-training by Representing and Predicting Spans">
+<meta itemprop="description" content="Abstract text의 span을 잘 표현하고 예측하는 pre-training 방법인 SpanBERT를 제안 random token이 아닌 contiguous random span을 masking 개별 token representations">
+<meta itemprop="datePublished" content="2021-05-12T23:25:00+08:00" />
+<meta itemprop="dateModified" content="2021-05-12T23:25:00+08:00" />
+<meta itemprop="wordCount" content="1610">
+
+
+
+<meta itemprop="keywords" content="spanbert,nlp," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[논문리뷰] SpanBERT: Improving Pre-training by Representing and Predicting Spans"/>
+<meta name="twitter:description" content="Abstract text의 span을 잘 표현하고 예측하는 pre-training 방법인 SpanBERT를 제안 random token이 아닌 contiguous random span을 masking 개별 token representations"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">킹스날 개발 블로그</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">킹스날 개발 블로그</a>
+</div>
+
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+      <a class="menu-item-link" href="/">Home</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="/post/">Archives</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="/tags/">Tags</a>
+    </li><li class="menu-item">
+      <a class="menu-item-link" href="/categories/">Categories</a>
+    </li>
+  </ul>
+</nav>
+
+<script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+    };
+
+    window.addEventListener('load', (event) => {
+        document.querySelectorAll("mjx-container").forEach(function (x) {
+            x.parentElement.classList += 'has-jax'
+        })
+    });
+
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">[논문리뷰] SpanBERT: Improving Pre-training by Representing and Predicting Spans</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-05-12 </span>
+        <div class="post-category">
+            <a href="/categories/nlp/"> nlp </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#model">Model</a>
+      <ul>
+        <li><a href="#span-masking">Span Masking</a></li>
+        <li><a href="#span-boundary-objective-sbo">Span Boundary Objective (SBO)</a></li>
+        <li><a href="#single-sequence-training">Single-Sequence Training</a></li>
+      </ul>
+    </li>
+    <li><a href="#implementation">Implementation</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#ablation-studies">Ablation Studies</a>
+      <ul>
+        <li><a href="#masking-schemes">Masking Schemes</a></li>
+        <li><a href="#auxiliary-objectives">Auxiliary Objectives</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="abstract">Abstract</h1>
+<p>text의 span을 잘 표현하고 예측하는 pre-training 방법인 SpanBERT를 제안</p>
+<ul>
+<li>random token이 아닌 contiguous random span을 masking</li>
+<li>개별 token representations에 의존하지 않고, masked span의 전체를 예측하기 위해 span boundary representations를 학습</li>
+</ul>
+<p> </p>
+<h1 id="introduction">Introduction</h1>
+<p>BERT와 같은 pre-training 방법은 개별 word나 subword 단위에서 강력한 성능을 보였다. 하지만 2개 이상의 span(범위) 간의 관계를 추론하는 question answering, coreference resolution과 같은 NLP task들이 존재한다.</p>
+<p>span-level pre-training 방법인 SpanBERT는 BERT와 비교하여 2가지의 차이점이 존재한다.</p>
+<p>첫째, 개별 token을 masking하지 않고 연속적인 spans를 masking한다.</p>
+<p>둘째, span boundary objective를 사용하여 boundary token을 이용해 masking된 전체 span을 예측한다. boundary token에 span-level 정보가 저장되어 있어 fine-tuning시에도 쉽게 접근할 수 있다.</p>
+<p align="center"><img src="/images/nlp/paper/spanbert/figure_1.png"></p>  
+<p>&ldquo;an American football game&quot;이 mask가 되어 있을 때, SBO는 x4와 x9를 boundary token으로 사용한다. p3는 fooball의 position embedding이다.</p>
+<p>추가적으로 NSP를 제거하고, single segment를 사용하였다.</p>
+<p>결과적으로 BERT와 비교하여 다양한 downstream task에서 BERT를 능가하는 성능을 보였다.</p>
+<p>학습 데이터를 많이 사용하거나 모델 크기를 키우지 않고, 좋은 pre-training task와 objective만으로도 좋은 성능을 낼 수 있다는 것을 보여준다.</p>
+<p> </p>
+<h1 id="model">Model</h1>
+<h2 id="span-masking">Span Masking</h2>
+<p>전체 token에서 15%를 masking한다. 먼저 geometric distribution($\ell$ ~ Geo(p))을 이용하여 span의 길이를 정한다. 그 후 랜덤하게 시작점을 선택한다. 항상 subword가 아닌 전체 word를 선택한다. p는 0.2, $\ell_{max}$는 10을 사용하여 평균 span length $mean(\ell)$은 3.8이었다.</p>
+<p align="center"><img src="/images/nlp/paper/spanbert/figure_2.png"></p>  
+<p>BERT와 동일하게 80%는 masking을 하고 10%는 random token을, 나머지 10%는 원본 token을 사용하였다.</p>
+<p> </p>
+<h2 id="span-boundary-objective-sbo">Span Boundary Objective (SBO)</h2>
+<p>SpanBERT는 masked span의 양 끝에 있는 token들을 이용하여 각 masked token을 예측하는 span boundary objective를 사용하였다.</p>
+<p>masked span이 $x_s, &hellip;, x_e$로 주어졌을때, 각 토큰 $x_i$는 positional embedding과 boundary token을 이용하여 표현된다. s와 e는 start, end position을 뜻하며, $x_{s-1}$과 $x_{e-1}$은 boundary token이다.  $p_{i-s+1}$는 target token이며 boundary token 기준으로 상대적인 위치로 표시한다.</p>
+<p align="center"><img src="/images/nlp/paper/spanbert/eq_1.png"></p>  
+<p>f(·)는 2 layer의 feed-forword network이며 GeLU activeation과 layer normalization을 사용한다.</p>
+<p align="center"><img src="/images/nlp/paper/spanbert/eq_2.png"></p>  
+<p>vector ${y}_i$를 이용하여 token $x_i$를 예측하고 MLM objective와 같은 cross-entropy loss를 이용하여 계산한다.</p>
+<p>최종적으로는 span boundary loss와 MLM loss를 합쳐서 사용한다.</p>
+<p align="center"><img src="/images/nlp/paper/spanbert/eq_3.png"></p>  
+<p> </p>
+<h2 id="single-sequence-training">Single-Sequence Training</h2>
+<p>BERT에서 사용한 NSP를 제거하고, 하나의 sequence를 입력으로 사용하였다. single sequence가 NSP를 사용한 bi-sequence보다 좋은 이유는, 길이가 긴 full length를 사용할 수 있다는 점과 서로 다른 document에서 추출된 문장 2개는 MLM에서 noise를 만들어내기 때문이다. 그래서 최대 512 token을 가지는 하나의 연속적인  segment를 입력으로 사용하였다.</p>
+<p> </p>
+<h1 id="implementation">Implementation</h1>
+<p>기본적으로 BERT large의 설정을 가져와 사용하였고, 동일한 dataset을 사용하였다.</p>
+<p>original BERT와 다른 점은 2가지 이다.</p>
+<ul>
+<li>epoch마다 masking을 다르게 적용</li>
+<li>short sequence를 샘플링하는 것을 제거하고 항상 512 token을 가지도록 만듬</li>
+</ul>
+<p> </p>
+<h1 id="results">Results</h1>
+<p>대부분의 task에서 SpanBERT가 BERT를 능가하였다. 또한 single sequence training이 NSP를 사용한 것보다 더 좋은 성능을 거둔 것을 확인할 수 있다.</p>
+<p align="center"><img src="/images/nlp/paper/spanbert/table_1.png"></p>  
+<p align="center"><img src="/images/nlp/paper/spanbert/table_2.png"></p>  
+<p align="center"><img src="/images/nlp/paper/spanbert/table_3.png"></p>  
+<p align="center"><img src="/images/nlp/paper/spanbert/table_4.png"></p>  
+<p> </p>
+<h1 id="ablation-studies">Ablation Studies</h1>
+<h2 id="masking-schemes">Masking Schemes</h2>
+<p>random span과 linguistically-informed span을 비교하였다.</p>
+<p>linguistically-informed span(named entities, noun phrases)가 random span 대비 경쟁력 있는 성능을 보인 task가 있긴 하지만, 일관적으로 더 좋은 성능을 내지는 못했다.</p>
+<p align="center"><img src="/images/nlp/paper/spanbert/table_5.png"></p>  
+<p> </p>
+<h2 id="auxiliary-objectives">Auxiliary Objectives</h2>
+<p>그 결과 single-sequence trainging을 하였을 때 성능이 더 좋아졌다. 또한 NSP와 달리 SBO를 추가였을 때 어떠한 나쁜 영향도 없었다.</p>
+<p align="center"><img src="/images/nlp/paper/spanbert/table_6.png"></p>  
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/spanbert/">spanbert</a>
+          <a href="/tags/nlp/">nlp</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/nlp/paper/gpt1/">
+            <span class="next-text nav-default">[논문리뷰] Improving language understanding by generative pre-training</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:shinejk.qoo@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/bhchoi" class="iconfont icon-github" title="github"></a>
+  <a href="https://bhchoi.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

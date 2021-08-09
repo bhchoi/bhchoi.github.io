@@ -6,7 +6,16 @@
     <description>Recent content in nlp on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 28 Apr 2021 23:25:00 +0800</lastBuildDate><atom:link href="https://bhchoi.github.io/categories/nlp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 12 May 2021 23:25:00 +0800</lastBuildDate><atom:link href="https://bhchoi.github.io/categories/nlp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[논문리뷰] SpanBERT: Improving Pre-training by Representing and Predicting Spans</title>
+      <link>https://bhchoi.github.io/post/nlp/paper/spanbert/</link>
+      <pubDate>Wed, 12 May 2021 23:25:00 +0800</pubDate>
+      
+      <guid>https://bhchoi.github.io/post/nlp/paper/spanbert/</guid>
+      <description>Abstract text의 span을 잘 표현하고 예측하는 pre-training 방법인 SpanBERT를 제안 random token이 아닌 contiguous random span을 masking 개별 token representations</description>
+    </item>
+    
     <item>
       <title>[논문리뷰] Improving language understanding by generative pre-training</title>
       <link>https://bhchoi.github.io/post/nlp/paper/gpt1/</link>

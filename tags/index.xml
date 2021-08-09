@@ -6,22 +6,31 @@
     <description>Recent content in Tags on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 28 Apr 2021 23:25:00 +0800</lastBuildDate><atom:link href="https://bhchoi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 12 May 2021 23:25:00 +0800</lastBuildDate><atom:link href="https://bhchoi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>nlp</title>
+      <link>https://bhchoi.github.io/tags/nlp/</link>
+      <pubDate>Wed, 12 May 2021 23:25:00 +0800</pubDate>
+      
+      <guid>https://bhchoi.github.io/tags/nlp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>spanbert</title>
+      <link>https://bhchoi.github.io/tags/spanbert/</link>
+      <pubDate>Wed, 12 May 2021 23:25:00 +0800</pubDate>
+      
+      <guid>https://bhchoi.github.io/tags/spanbert/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>gpt</title>
       <link>https://bhchoi.github.io/tags/gpt/</link>
       <pubDate>Wed, 28 Apr 2021 23:25:00 +0800</pubDate>
       
       <guid>https://bhchoi.github.io/tags/gpt/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>nlp</title>
-      <link>https://bhchoi.github.io/tags/nlp/</link>
-      <pubDate>Wed, 28 Apr 2021 23:25:00 +0800</pubDate>
-      
-      <guid>https://bhchoi.github.io/tags/nlp/</guid>
       <description></description>
     </item>
     
